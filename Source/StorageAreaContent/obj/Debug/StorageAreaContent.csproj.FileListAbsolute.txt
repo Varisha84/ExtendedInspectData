@@ -1,0 +1,4 @@
+D:\Steam\SteamApps\common\RimWorld\Mods\StorageAreaContent\Source\StorageAreaContent\obj\Debug\StorageAreaContent.csprojResolveAssemblyReference.cache
+D:\Steam\SteamApps\common\RimWorld\Mods\StorageAreaContent\Source\StorageAreaContent\obj\Debug\StorageAreaContent.csproj.CoreCompileInputs.cache
+D:\Steam\SteamApps\common\RimWorld\Mods\StorageAreaContent\Assemblies\StorageAreaContent.dll
+D:\Steam\SteamApps\common\RimWorld\Mods\StorageAreaContent\Source\StorageAreaContent\obj\Debug\StorageAreaContent.dll
