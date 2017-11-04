@@ -7,15 +7,9 @@
 	<description>
 This mod will put some basic information into the inspect window for the current selected zone. 
 
-Feature:
-This mod will put some basic information into the inspect window for the current selected zone.
-
+For zones to store things:
 The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
 
-ToDo:
- - alphabetical sorting of entries
- - dynamic height of inspect window for larger lists
- - include currently excluded entries (things without icon will be placed at the end of the list)
 
  Version:
  1.0.17.3
