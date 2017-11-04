@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>StorageAreaContent</name>
+	<name>ZoneInspectData</name>
 	<author>Varisha</author>
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
 This mod will put some basic information into the inspect window for the current selected zone. 
 
-&lt;color=orange&gt;&lt;b&gt;Feature:&lt;/b&gt;&lt;/color&gt;
-The mod adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon (base on ThingDef information), the label and the total number of things in the zone which share the same "ThingDef".
-The mod analyzes the stored items in a zone. It uses a things "ThingDef" information to group same things together and count the number of occurences in the zone. So if you have 3 different parcas for example, each crafted with a different resource or quality the mod will sum them up resulting in 1 entry in the list. The entry says you have "Parca x3". For a simple overview of number of items this should be ok.
+Feature:
+This mod will put some basic information into the inspect window for the current selected zone.
 
-The analyzation of the content is done on each new zone selection and not in every draw cycle, to reduce performance impact. If there is any update in the stackcounts it will be visible only after deselecting and selecting the zone again.
+The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
 
-&lt;color=orange&gt;&lt;b&gt;ToDo:&lt;/b&gt;&lt;/color&gt;
+ToDo:
  - alphabetical sorting of entries
  - dynamic height of inspect window for larger lists
+ - include currently excluded entries (things without icon will be placed at the end of the list)
 
+ Version:
+ 1.0.17.2
 	</description>
 </ModMetaData>

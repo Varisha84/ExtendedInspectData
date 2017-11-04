@@ -4,7 +4,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace StorageAreaContent
+namespace ZoneInspectData
 
 {
     public class ZoneStockpileInspectPaneFiller
@@ -76,7 +76,7 @@ namespace StorageAreaContent
             {
                 Log.ErrorOnce(string.Concat(new object[]
                 {
-                    "Error in Mod StorageAreaContent: ZoneStockpileInspectPaneFiller#DoPaneContentsFor ",
+                    "Error in Mod ZoneInspectData: ZoneStockpileInspectPaneFiller#DoPaneContentsFor ",
                     Find.Selector.FirstSelectedObject,
                     ": ", ex.ToString()
                 }), this.GetHashCode());

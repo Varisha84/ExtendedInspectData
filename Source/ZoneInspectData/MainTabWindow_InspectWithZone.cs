@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace StorageAreaContent
+namespace ZoneInspectData
 {
     [StaticConstructorOnStartup]
     public class MainTabWindow_InspectZone_Stockpile : MainTabWindow_Inspect

@@ -3,7 +3,7 @@
 	<Operation Class="PatchOperationReplace">
 	  <xpath>//MainButtonDef[defName = "Inspect"]/tabWindowClass</xpath>
 	  <value>
-        <tabWindowClass>StorageAreaContent.MainTabWindow_InspectZone_Stockpile</tabWindowClass>
+        <tabWindowClass>ZoneInspectData.MainTabWindow_InspectZone_Stockpile</tabWindowClass>
 	  </value>
 	</Operation> 
 </Patch>
