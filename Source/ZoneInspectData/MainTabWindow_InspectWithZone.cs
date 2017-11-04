@@ -13,9 +13,7 @@ namespace ZoneInspectData
 
         public MainTabWindow_InspectZone_Stockpile() : base()
         {
-            Log.Message("New instance");
-            zoneInspectPanelFiller = new ZoneStockpileInspectPaneFiller();
-            
+            zoneInspectPanelFiller = new ZoneStockpileInspectPaneFiller();   
         }
 
         public override void DoWindowContents(Rect inRect)
