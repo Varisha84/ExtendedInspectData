@@ -9,14 +9,24 @@ namespace ZoneInspectData
 {
     public class ZoneStockpileInspectPaneFiller
     {
+        private static readonly float ICON_WIDTH = 27f;
+        private static readonly float DATAROW_HEIGHT = 28f;
+
+        //set of things to consider
         private readonly HashSet<ThingDef> thingDefinitions;
+        
+        //map thingdef to total stackcount 
         private readonly Dictionary<ThingDef, int> summedUpThingsWithIcon;
         private readonly Dictionary<ThingDef, int> summedUpThingsWithoutIcon;
+
+        //used for sorting
+        private readonly List<ThingDef> summedUpThingsWithIconLabelList;
+        private readonly List<ThingDef> summedUpThingsWithoutIconLabelList;
+
         private Zone_Stockpile lastZoneInspected;
         private Vector2 scrollPosition;
 
-        private static readonly float ICON_WIDTH = 27f;
-        private static readonly float DATAROW_HEIGHT = 28f;
+        
 
         public ZoneStockpileInspectPaneFiller()
         {
@@ -24,6 +34,9 @@ namespace ZoneInspectData
             scrollPosition = Vector2.zero;
             summedUpThingsWithIcon = new Dictionary<ThingDef, int>();
             summedUpThingsWithoutIcon = new Dictionary<ThingDef, int>();
+            summedUpThingsWithIconLabelList = new List<ThingDef>();
+            summedUpThingsWithoutIconLabelList = new List<ThingDef>();
+
             IEnumerable<TreeNode_ThingCategory> categories = ThingCategoryNodeDatabase.AllThingCategoryNodes;
             thingDefinitions = new HashSet<ThingDef>();
 
@@ -58,8 +71,8 @@ namespace ZoneInspectData
                 float num = mainRect.y + 4f;
                 float num2 = this.scrollPosition.y - DATAROW_HEIGHT;
                 float num3 = this.scrollPosition.y + mainRect.height;
-                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithIcon, true);
-                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithoutIcon, false);
+                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithIconLabelList, summedUpThingsWithIcon, true);
+                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, false);
                 Widgets.EndScrollView();
             }
             catch (Exception ex)
@@ -85,10 +98,10 @@ namespace ZoneInspectData
             scrollPosition = Vector2.zero;
         }
 
-        private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, Dictionary<ThingDef, int> dict, bool drawIcon)
+        private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, List<ThingDef> list, Dictionary<ThingDef, int> dict, bool drawIcon)
         {
             bool success = false;
-            foreach (ThingDef tDef in dict.Keys)
+            foreach (ThingDef tDef in list)
             {
                 if (num > num2 && num < num3)
                 {
@@ -135,6 +148,8 @@ namespace ZoneInspectData
             lastZoneInspected = zone;
             summedUpThingsWithIcon.Clear();
             summedUpThingsWithoutIcon.Clear();
+            summedUpThingsWithIconLabelList.Clear();
+            summedUpThingsWithoutIconLabelList.Clear();
             IEnumerator<Thing> thingIt = zone.AllContainedThings.GetEnumerator();
 
             foreach (Thing t in zone.AllContainedThings)
@@ -143,17 +158,17 @@ namespace ZoneInspectData
                 {
                     if (t.def.uiIcon != BaseContent.BadTex)
                     {
-                        UpdateInDictionary(summedUpThingsWithIcon, t);
+                        UpdateLookupData(summedUpThingsWithIconLabelList, summedUpThingsWithIcon, t);
                     }
                     else
                     {
-                        UpdateInDictionary(summedUpThingsWithoutIcon, t);
+                        UpdateLookupData(summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, t);
                     }
                 }
             }
         }
 
-        private void UpdateInDictionary(Dictionary<ThingDef, int> dict, Thing t)
+        private void UpdateLookupData(List<ThingDef> list, Dictionary<ThingDef, int> dict, Thing t)
         {
             int currentAmount;
             if (dict.TryGetValue(t.def, out currentAmount))
@@ -163,6 +178,22 @@ namespace ZoneInspectData
             else
             {
                 dict.Add(t.def, t.stackCount);
+            }
+
+            if (! list.Contains(t.def))
+            {
+                int index = 0;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].label.CompareTo(t.def.label) > 0)
+                    {                        
+                        break;
+                    } else
+
+                    index++;
+                }
+
+                list.Insert(index, t.def);
             }
         }
     }
