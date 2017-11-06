@@ -5,6 +5,8 @@
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
+Current Version: 1.1.17.4
+
 This mod will put some basic information into the inspect window for the current selected zone. 
 
 For zones to store things:
@@ -24,7 +26,14 @@ Below the graph you find the following information from left to right
  - Total number of plants that cannot be harvested yet (left of white line)
  - Total number of plants that can be harvested (right of white line)
 
-Version:
- 1.1.17.4
+ 
+Release-Notes:
+**************
+v1.1.17.4:
+ - included graph for single selection of farm zones 
+ 
+v1.1.17.3
+ - lists for storage zones are now sorted
+ - included previously excluded entries with no icon (added at the end of the list)
 	</description>
 </ModMetaData>
