@@ -30,7 +30,7 @@ Below the graph you find the following information from left to right
 Release-Notes:
 **************
 v1.1.17.4:
- - included graph for single selection of farm zones 
+ - included graph for single selection of farm zones (not compatible with A18)
  
 v1.1.17.3
  - lists for storage zones are now sorted
