@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ZoneInspectData</name>
+	<name>ZoneInspectData [A17]</name>
 	<author>Varisha</author>
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
@@ -17,7 +17,7 @@ For zones to grow plants:
 Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
 The graph contains these information:
  - x axis = growth value in percent (a plant has growth value of 0-100%)
- - y axis = percentage of total planted plants in the zone that reached growth value x (let's say i have like 8 percent of plants that reached growth value ~52% and 13% are around 100% growth value)
+ - y axis = percentage of total planted plants in the zone that reached growth value x
  - The white vertical line marks the growth value that is needed to harvest a plant.
 
 Below the graph you find the following information from left to right
@@ -30,7 +30,7 @@ Below the graph you find the following information from left to right
 Release-Notes:
 **************
 v1.1.17.4:
- - included graph for single selection of farm zones (not compatible with A18)
+ - included graph for single selection of farm zones (not compatible with A18 => Look for mod "ZoneInspectData [A18]")
  
 v1.1.17.3
  - lists for storage zones are now sorted
