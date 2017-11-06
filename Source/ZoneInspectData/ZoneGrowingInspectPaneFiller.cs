@@ -7,6 +7,7 @@ using Verse;
 namespace ZoneInspectData
 
 {
+    [StaticConstructorOnStartup]
     public class ZoneGrowingInspectPaneFiller
     {
         public static readonly int GROWINGZONE_SINGLE_SELECT_ADDITIONAL_HEIGHT = 172;
