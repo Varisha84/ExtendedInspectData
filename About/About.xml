@@ -11,7 +11,20 @@ For zones to store things:
 The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
 
 
- Version:
- 1.0.17.3
+For zones to grow plants:
+Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
+The graph contains these information:
+ - x axis = growth value in percent (a plant has growth value of 0-100%)
+ - y axis = percentage of total planted plants in the zone that reached growth value x (let's say i have like 8 percent of plants that reached growth value ~52% and 13% are around 100% growth value)
+ - The white vertical line marks the growth value that is needed to harvest a plant.
+
+Below the graph you find the following information from left to right
+ - Total of cells with no plant in it (this includes cells that are marked as growing zone, but have a lamp on it or so)
+ - Total cells with plants in it (any growth value)
+ - Total number of plants that can not be harvested yet (left of white line)
+ - Total number of plants that can be harvested (right of white line)
+
+Version:
+ 1.1.17.4
 	</description>
 </ModMetaData>
