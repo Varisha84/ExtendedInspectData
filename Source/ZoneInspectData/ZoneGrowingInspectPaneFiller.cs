@@ -82,7 +82,7 @@ namespace ZoneInspectData
                 GUI.BeginGroup(rect);
                 //-20f for x due to adjustments when displaying measures
                 Rect graphRect = new Rect(-20f, 90f, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
-                Rect yAxisLabelRect = new Rect(12f, 78f, rect.width - 24, 20);
+                Rect yAxisLabelRect = new Rect(12f, 78f, graphRect.yMin - 12, 20);
                 Rect xAxisLabelRect = new Rect(12f, graphRect.yMax-6, rect.width - 36, 20);
                 Rect infoRect = new Rect(12f, xAxisLabelRect.yMax, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_INFOHEIGHT - 12f);
 
