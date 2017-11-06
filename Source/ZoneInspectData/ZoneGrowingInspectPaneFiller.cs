@@ -25,7 +25,7 @@ namespace ZoneInspectData
         private SimpleCurveDrawInfo growthValueDrawInfo;
         private SimpleCurveDrawInfo harvestableMarkerDrawInfo;
         private SimpleCurveDrawerStyle curveDrawerStyle;
-        private Vector2 graphSection;
+        private FloatRange graphSection;
 
         private static readonly Texture2D emptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedNeed", true);
         private static readonly Texture2D nonEmptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedWell", true);
@@ -39,7 +39,7 @@ namespace ZoneInspectData
             lastZoneInspected = null;
             totalPlantedCount = 0;
             curves = new List<SimpleCurveDrawInfo>();
-            graphSection = new Vector2(0f, 101f);
+            graphSection = new FloatRange(0f, 101f);
             growRatesAbsolute = new int[101];
             for (int i=0; i<101; i++)
             {
@@ -81,8 +81,8 @@ namespace ZoneInspectData
             {
                 GUI.BeginGroup(rect);
                 //-20f for x due to adjustments when displaying measures
-                Rect graphRect = new Rect(-20f, 90f, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
-                Rect yAxisLabelRect = new Rect(12f, 78f, rect.width - 24, 20);
+                Rect graphRect = new Rect(-20f, 100f, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
+                Rect yAxisLabelRect = new Rect(12f, graphRect.yMin - 12, rect.width - 24, 20);
                 Rect xAxisLabelRect = new Rect(12f, graphRect.yMax-6, rect.width - 36, 20);
                 Rect infoRect = new Rect(12f, xAxisLabelRect.yMax, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_INFOHEIGHT - 12f);
 
