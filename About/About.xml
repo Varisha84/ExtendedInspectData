@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ZoneInspectData</name>
+	<name>ZoneInspectData [A18]</name>
 	<author>Varisha</author>
 	<targetVersion>0.18.1712</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
@@ -33,7 +33,7 @@ v1.1.18.1:
  - fixed graph implementation for A18 (not compatible with A17)
 
 v1.1.17.4:
- - included graph for single selection of farm zones 
+ - included graph for single selection of farm zones (not compatible with A18) 
  
 v1.1.17.3
  - lists for storage zones are now sorted
