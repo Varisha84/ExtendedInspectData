@@ -42,21 +42,30 @@ namespace ZoneInspectData
         {
             base.DoWindowContents(inRect);
 
-            Zone_Stockpile selStockpileZone = ((ISelectable)Find.Selector.FirstSelectedObject) as Zone_Stockpile;
-            Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.FirstSelectedObject) as Zone_Growing;
-            
-            if (selStockpileZone != null)
+            if (Find.Selector.NumSelected == 1)
             {
-                Rect rect = inRect.AtZero();
-                rect.yMin += 26f;
-                zoneStockpileInspectPanelFiller.DoPaneContentsFor(selStockpileZone, rect);
-            } else if ((Find.Selector.NumSelected == 1) && (selGrowingZone != null)) 
-            {                
-                zoneGrowingInspectPanelFiller.DoPaneContentsFor(selGrowingZone, inRect);
+                Zone_Stockpile selStockpileZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Stockpile;
+                Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Growing;
+
+                //single selection
+                if (selStockpileZone != null)
+                {
+                    Rect rect = inRect.AtZero();
+                    rect.yMin += 26f;
+                    zoneStockpileInspectPanelFiller.DoPaneContentsFor(selStockpileZone, rect);
+                }
+                else if (selGrowingZone != null)
+                {
+                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(selGrowingZone, inRect);
+                }
+                else
+                {
+                    zoneStockpileInspectPanelFiller.ResetData();
+                    zoneGrowingInspectPanelFiller.ResetData();
+                }
             } else
             {
-                zoneStockpileInspectPanelFiller.ResetData();
-                zoneGrowingInspectPanelFiller.ResetData();
+                //multiple selection
             }
         }
     }
