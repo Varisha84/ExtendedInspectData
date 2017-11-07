@@ -12,7 +12,7 @@ namespace ZoneInspectData
         private static readonly float ICON_WIDTH = 27f;
         private static readonly float DATAROW_HEIGHT = 28f;
 
-        //set of things to consider
+        //set of things to consider for listing (basically anything that can be set in zone settings filter)
         private readonly HashSet<ThingDef> thingDefinitions;
         
         //map thingdef to total stackcount 
@@ -25,6 +25,11 @@ namespace ZoneInspectData
 
         private Zone_Stockpile lastZoneInspected;
         private Vector2 scrollPosition;
+
+        //data used for drawing
+        private Rect mainRect;
+        private Rect viewRect;
+        private float calculatedViewRectHeight;
 
         
 
@@ -47,6 +52,10 @@ namespace ZoneInspectData
                     thingDefinitions.Add(td);
                 }
             }
+
+            //init drawing data to reduce object handling each draw cycle
+            mainRect = new Rect(16f, 20f, 0f, 0f);
+            viewRect = new Rect(mainRect.x, mainRect.y, 0f, 0f);
         }
 
         public void DoPaneContentsFor(Zone_Stockpile zone, Rect rect)
@@ -63,14 +72,15 @@ namespace ZoneInspectData
                 Text.WordWrap = false;
                 Text.Font = GameFont.Small;
 
-                Rect mainRect = new Rect(12f, 16f, rect.width - 24f, rect.height - 24f);
-                float height = 4f + (float) (this.summedUpThingsWithIcon.Count  + this.summedUpThingsWithoutIcon.Count) * DATAROW_HEIGHT;
-                Rect viewRect = new Rect(mainRect.x, mainRect.y, mainRect.width - 20f, height);
-                Widgets.BeginScrollView(mainRect, ref this.scrollPosition, viewRect, true);
+                mainRect.width = rect.width - 28f;
+                mainRect.height = rect.height - 28f;
+                viewRect.width = mainRect.width - 20f;
+                viewRect.height = calculatedViewRectHeight;
+                Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
                 
-                float num = mainRect.y + 4f;
-                float num2 = this.scrollPosition.y - DATAROW_HEIGHT;
-                float num3 = this.scrollPosition.y + mainRect.height;
+                float num = mainRect.y;
+                float num2 = scrollPosition.y - DATAROW_HEIGHT;
+                float num3 = scrollPosition.y + mainRect.height;
                 DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithIconLabelList, summedUpThingsWithIcon, true);
                 DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, false);
                 Widgets.EndScrollView();
@@ -105,7 +115,7 @@ namespace ZoneInspectData
             {
                 if (num > num2 && num < num3)
                 {
-                    Rect rect2 = new Rect(mainRect.x + 6, num, viewRect.width, DATAROW_HEIGHT);
+                    Rect rect2 = new Rect(mainRect.x, num, viewRect.width, DATAROW_HEIGHT);
                     success = DrawDataRow(rect2, tDef, dict[tDef], drawIcon);
                 }
                 else
@@ -166,6 +176,8 @@ namespace ZoneInspectData
                     }
                 }
             }
+
+            calculatedViewRectHeight = (summedUpThingsWithIcon.Count + summedUpThingsWithoutIcon.Count) * DATAROW_HEIGHT;
         }
 
         private void UpdateLookupData(List<ThingDef> list, Dictionary<ThingDef, int> dict, Thing t)
