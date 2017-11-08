@@ -19,9 +19,9 @@ namespace ZoneInspectData
         private Zone_Growing lastZoneInspected;
         private int[] growRatesAbsolute;
         private int totalPlantedCount;
-        private int totalHarvestableCount;
-        private int totalFullyGrownCount;
         private List<SimpleCurveDrawInfo> curves;
+        private List<Thing> harvestableThings;
+        private List<Thing> fullyGrownThings;
         private int lastTick;
 
         private SimpleCurveDrawInfo growthValueDrawInfo;
@@ -41,6 +41,8 @@ namespace ZoneInspectData
             lastZoneInspected = null;
             totalPlantedCount = 0;
             curves = new List<SimpleCurveDrawInfo>();
+            harvestableThings = new List<Thing>();
+            fullyGrownThings = new List<Thing>();
             graphSection = new Vector2(0f, 101f);
             growRatesAbsolute = new int[101];
             for (int i=0; i<101; i++)
@@ -105,13 +107,13 @@ namespace ZoneInspectData
                 //Draw total empty cells
                 Rect iconRect1 = new Rect(infoRect.x + (singleInfoWidth/2) -10f, infoRect.y + 5f, 20f, 20f);
                 GUI.DrawTexture(iconRect1, emptyCellCountIcon);
-                Rect emptyCellRectLabel = new Rect(infoRect.x, iconRect1.yMax + 10f, singleInfoWidth, 30f);
+                Rect emptyCellRectLabel = new Rect(infoRect.x, iconRect1.yMax + 10f, singleInfoWidth, 20f);
                 Widgets.Label(emptyCellRectLabel, "x" + (lastZoneInspected.Cells.Count - totalPlantedCount));
 
                 //Draw total cells with plants
                 Rect iconRect2 = new Rect(iconRect1.x + singleInfoWidth, iconRect1.y, 20f, 20f);
                 GUI.DrawTexture(iconRect2, nonEmptyCellCountIcon);
-                Rect nonEmptyCellRectLabel = new Rect(emptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 30f);
+                Rect nonEmptyCellRectLabel = new Rect(emptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 20f);
                 Widgets.Label(nonEmptyCellRectLabel, "x" + totalPlantedCount);
 
                 //Draw non harvestable cells (growth value limit not reached)
@@ -119,21 +121,44 @@ namespace ZoneInspectData
                 Rect iconRect4 = new Rect(iconRect3.xMax + 2f, iconRect1.y, 10f, 20f);
                 GUI.DrawTexture(iconRect3, nonHarvestableIcon);
                 GUI.DrawTexture(iconRect4, nonHarvestableIcon);
-                Rect nonHarvestableCellRectLabel = new Rect(nonEmptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 30f);
-                Widgets.Label(nonHarvestableCellRectLabel, "x" + (totalPlantedCount - totalHarvestableCount));
-                Widgets.DrawAltRect(nonHarvestableCellRectLabel);
+                Rect nonHarvestableCellRectLabel = new Rect(nonEmptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 20f);
+                Widgets.Label(nonHarvestableCellRectLabel, "x" + (totalPlantedCount - harvestableThings.Count));
 
                 //Draw harvestable cells (growth value limit reached)
-                Rect iconRect5 = new Rect(iconRect3.x + singleInfoWidth - 2f, iconRect1.y - 2f, 24f, 24f);
+                Rect iconRect5 = new Rect(iconRect3.x + singleInfoWidth, iconRect1.y, 20f, 20f);
                 GUI.DrawTexture(iconRect5, harvestableIcon);
-                Rect harvestableCellRectLabel = new Rect(nonHarvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 30f);
-                Widgets.Label(harvestableCellRectLabel, "x" + totalHarvestableCount);
+                if (Mouse.IsOver(iconRect5))
+                {
+                    Widgets.DrawBox(iconRect5);
+                }
+                Rect harvestableCellRectLabel = new Rect(nonHarvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 20f);
+                Widgets.Label(harvestableCellRectLabel, "x" + harvestableThings.Count);
+                if (Widgets.ButtonInvisible(iconRect5))
+                {
+                    Find.Selector.ClearSelection();
+                    foreach (Thing t in harvestableThings)
+                    {
+                        Find.Selector.Select(t, false);
+                    }
+                }
 
                 //Draw fully grown cells (growth value >= 100%)
-                Rect iconRect6 = new Rect(iconRect5.x + singleInfoWidth + 2f, iconRect1.y - 2f, 20f, 20f);
+                Rect iconRect6 = new Rect(iconRect5.x + singleInfoWidth, iconRect1.y, 20f, 20f);
                 GUI.DrawTexture(iconRect6, fullyGrown);
-                Rect fullyGrownCellRectLabel = new Rect(harvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 30f);
-                Widgets.Label(fullyGrownCellRectLabel, "x" + totalFullyGrownCount);
+                if (Mouse.IsOver(iconRect6))
+                {
+                    Widgets.DrawBox(iconRect6);
+                }
+                Rect fullyGrownCellRectLabel = new Rect(harvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, 20f);
+                Widgets.Label(fullyGrownCellRectLabel, "x" + fullyGrownThings.Count);
+                if (Widgets.ButtonInvisible(iconRect6))
+                {
+                    Find.Selector.ClearSelection();
+                    foreach (Thing t in fullyGrownThings)
+                    {
+                        Find.Selector.Select(t, false);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -141,7 +166,7 @@ namespace ZoneInspectData
                 {
                     "Error in Mod ZoneInspectData: ZoneGrowingInspectPaneFiller#DrawGraph ",
                     Find.Selector.FirstSelectedObject,
-                    ": ", ex.ToString()
+                    ": ", ex.StackTrace
                 }), this.GetHashCode());
             }
             finally
@@ -155,8 +180,8 @@ namespace ZoneInspectData
         {
             lastZoneInspected = null;
             totalPlantedCount = 0;
-            totalHarvestableCount = 0;
-            totalFullyGrownCount = 0;
+            harvestableThings.Clear();
+            fullyGrownThings.Clear();
             curves.Clear();
             for (int i = 0; i < 101; i++)
             {
@@ -188,7 +213,7 @@ namespace ZoneInspectData
 
                         if (growthRate >= 100)
                         {
-                            totalFullyGrownCount++;
+                            fullyGrownThings.Add(t);
                         }
 
                         if (growRatesAbsolute[maxCountIndex] < growRatesAbsolute[growthRate])
@@ -198,7 +223,7 @@ namespace ZoneInspectData
 
                         if (growthRate >= harvestMinGrowth)
                         {
-                            totalHarvestableCount++;
+                            harvestableThings.Add(t);
                         }
                     }
                 }
