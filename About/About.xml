@@ -5,7 +5,7 @@
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.17.4
+Current Version: 1.1.17.5
 
 This mod will put some basic information into the inspect window for the current selected zone. 
 
@@ -29,6 +29,9 @@ Below the graph you find the following information from left to right
  
 Release-Notes:
 **************
+v1.1.17.5:
+ - farm zones single selection: Included total number of fully grown plants and realigned information below graph
+
 v1.1.17.4:
  - included graph for single selection of farm zones (not compatible with A18 => Look for mod "ZoneInspectData [A18]")
  
