@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 using UnityEngine;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ZoneInspectData
@@ -22,8 +22,9 @@ namespace ZoneInspectData
             {
                 Vector2 baseSize = base.RequestedTabSize;
 
-                Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.FirstSelectedObject) as Zone_Growing;
-                if ((Find.Selector.NumSelected == 1) && (selGrowingZone != null)) {
+                List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
+                if (things.Count == Find.Selector.NumSelected)
+                {
                     //get default size
                     return new Vector2(baseSize.x, baseSize.y + ZoneGrowingInspectPaneFiller.GROWINGZONE_SINGLE_SELECT_ADDITIONAL_HEIGHT);
                 }
@@ -41,6 +42,7 @@ namespace ZoneInspectData
         public override void DoWindowContents(Rect inRect)
         {
             base.DoWindowContents(inRect);
+            bool flagReset = false;
 
             if (Find.Selector.NumSelected == 1)
             {
@@ -56,16 +58,29 @@ namespace ZoneInspectData
                 }
                 else if (selGrowingZone != null)
                 {
-                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(selGrowingZone, inRect);
+                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(new List<Zone_Growing>() { selGrowingZone }, inRect);
                 }
                 else
                 {
-                    zoneStockpileInspectPanelFiller.ResetData();
-                    zoneGrowingInspectPanelFiller.ResetData();
+                    flagReset = true;
+                }
+            } else if (Find.Selector.NumSelected > 1)
+            {
+                //multiple things selected, check if all are growing zones
+                List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
+                if (things.Count == Find.Selector.NumSelected)
+                {
+                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(things.Cast<Zone_Growing>().ToList(),  inRect);
                 }
             } else
             {
-                //multiple selection
+                flagReset = true;
+            }
+
+            if (flagReset)
+            {
+                zoneStockpileInspectPanelFiller.ResetData();
+                zoneGrowingInspectPanelFiller.ResetData();
             }
         }
     }

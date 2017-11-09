@@ -5,7 +5,7 @@
 	<targetVersion>0.18.1712</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.18.1
+Current Version: 1.1.18.2
 
 This mod will put some basic information into the inspect window for the current selected zone. 
 
@@ -13,7 +13,7 @@ For zones to store things:
 The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
 
 
-For zones to grow plants:
+Single selection of farm zones:
 Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
 The graph contains these information:
  - x axis = growth value in percent (a plant has growth value of 0-100%)
@@ -25,7 +25,17 @@ Below the graph you find the following information from left to right
  - Total cells with plants in it (any growth value)
  - Total number of plants that cannot be harvested yet (left of white line)
  - Total number of plants that can be harvested (right of white line)
+ - Total number of fully grown plants (growth value = 100%)
 
+Multiple selection of farm zones:
+ - List can be sorted by fully grown plants or harvestable plants (descending only)
+ - Single entry in list can be selected which results in single selection view of this zone.
+ 
+Release-Notes:
+**************
+v1.1.18.2:
+ - farm zones single selection: Included total number of fully grown plants and realigned information below graph. You can now select the things via the icons below the graph (for harvestable and fully grown plants)
+ - farm zones multiple selection: Added data view. 
  
 Release-Notes:
 **************
