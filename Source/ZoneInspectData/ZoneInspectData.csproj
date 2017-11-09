@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="MainTabWindow_InspectWithZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleZoneGrowingData.cs" />
     <Compile Include="ZoneGrowingInspectPaneFiller.cs" />
     <Compile Include="ZoneStockpileInspectPaneFiller.cs" />
   </ItemGroup>

@@ -33,6 +33,9 @@ namespace ZoneInspectData
         private static readonly Texture2D harvestableIcon = ContentFinder<Texture2D>.Get("UI/Designators/Harvest", true);
         private static readonly Texture2D fullyGrown = Widgets.CheckboxOnTex;
 
+        private bool sortHarvestableDesc;
+        private bool sortFullyGrownDesc;
+
 
         public ZoneGrowingInspectPaneFiller()
         {
@@ -40,6 +43,8 @@ namespace ZoneInspectData
             graphSection = new Vector2(0f, 101f);
             singleZoneDataList = new List<SingleZoneGrowingData>() {new SingleZoneGrowingData()};
             scrollPosition = Vector2.zero;
+            sortHarvestableDesc = false;
+            sortFullyGrownDesc = false;
             growthValueDrawInfo = new SimpleCurveDrawInfo();
             growthValueDrawInfo.color = Color.yellow;
             curveDrawerStyle = new SimpleCurveDrawerStyle();
@@ -200,6 +205,7 @@ namespace ZoneInspectData
                 Rect iconHeaderRect = new Rect(rect.width - iconHeaderWidth - 30, labelHeaderRect.y, iconHeaderWidth -20 , labelHeaderRect.height);
                 Rect iconRect1 = new Rect(iconHeaderRect.x + (singleInfoWidth / 2) - 10f, iconHeaderRect.y, 20f, labelHeaderRect.height);
                 GUI.DrawTexture(iconRect1, emptyCellCountIcon);
+                
                 Rect iconRect2 = new Rect(iconRect1.x + singleInfoWidth, iconRect1.y, iconRect1.width, labelHeaderRect.height);
                 GUI.DrawTexture(iconRect2, nonEmptyCellCountIcon);
                 Rect iconRect3 = new Rect(iconRect2.x + singleInfoWidth - 1, iconRect1.y, iconRect1.width / 2, labelHeaderRect.height);
@@ -208,23 +214,32 @@ namespace ZoneInspectData
                 GUI.DrawTexture(iconRect4, nonHarvestableIcon);
                 Rect iconRect5 = new Rect(iconRect3.x + singleInfoWidth, iconRect1.y, iconRect1.width, labelHeaderRect.height);
                 GUI.DrawTexture(iconRect5, harvestableIcon);
+                if (Widgets.ButtonInvisible(iconRect5))
+                {
+                    sortHarvestableDesc = !sortHarvestableDesc;
+                    sortFullyGrownDesc = false;
+                    UpdateSorting();
+                }
                 Rect iconRect6 = new Rect(iconRect5.x + singleInfoWidth, iconRect1.y, iconRect1.width, labelHeaderRect.height);
                 GUI.DrawTexture(iconRect6, fullyGrown);
+                if (Widgets.ButtonInvisible(iconRect6))
+                {
+                    sortHarvestableDesc = false;
+                    sortFullyGrownDesc = !sortFullyGrownDesc;
+                    UpdateSorting();
+                }
+
+                if (sortHarvestableDesc)
+                {
+                    Widgets.DrawBox(iconRect5);
+                }
+                else if (sortFullyGrownDesc)
+                {
+                    Widgets.DrawBox(iconRect6);
+                }
 
                 //draw scroll view
-                Text.WordWrap = true;
-                float calculatedViewHeight = singleZoneDataList.Count * MULTIPLE_INFO_DATAROW_HEIGHT;
-                Rect mainRect = new Rect(labelHeaderRect.x, labelHeaderRect.yMax + 15, rect.width - 28f, rect.height - labelHeaderRect.yMax - 18f);
-                Rect viewRect = new Rect(mainRect.x, mainRect.y, mainRect.width - 20f, calculatedViewHeight);
-                Widgets.DrawLineHorizontal(labelHeaderRect.x, mainRect.y - 5, mainRect.width);
-                Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
-                GUI.color = Color.white;
-
-                float num = mainRect.y;
-                float num2 = scrollPosition.y - MULTIPLE_INFO_DATAROW_HEIGHT;
-                float num3 = mainRect.y + scrollPosition.y + mainRect.height;
-                DrawZoneInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singleZoneDataList);
-                Widgets.EndScrollView();
+                DrawScrollView(rect, labelHeaderRect, iconHeaderRect, ref singleInfoWidth);
             }
             catch (Exception ex)
             {
@@ -242,13 +257,35 @@ namespace ZoneInspectData
             }
         }
 
+        private void DrawScrollView(Rect rect, Rect labelHeaderRect, Rect iconHeaderRect, ref float singleInfoWidth)
+        {
+            Log.Message(" start scrollview >>>>> ");
+            foreach (SingleZoneGrowingData szgd in singleZoneDataList)
+            {
+                Log.Message(szgd.zone.GetPlantDefToGrow() + " .. " + szgd.fullyGrownPlants.Count);
+            }
+            Log.Message(" ... DONE <<<<< ");
+            Text.WordWrap = true;
+            float calculatedViewHeight = singleZoneDataList.Count * MULTIPLE_INFO_DATAROW_HEIGHT;
+            Rect mainRect = new Rect(labelHeaderRect.x, labelHeaderRect.yMax + 15, rect.width - 28f, rect.height - labelHeaderRect.yMax - 18f);
+            Rect viewRect = new Rect(mainRect.x, mainRect.y, mainRect.width - 20f, calculatedViewHeight);
+            Widgets.DrawLineHorizontal(labelHeaderRect.x, mainRect.y - 5, mainRect.width);
+            Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
+            GUI.color = Color.white;
+
+            float num = mainRect.y;
+            float num2 = scrollPosition.y - MULTIPLE_INFO_DATAROW_HEIGHT;
+            float num3 = mainRect.y + scrollPosition.y + mainRect.height;
+            DrawZoneInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singleZoneDataList);
+            Widgets.EndScrollView();
+        }
+
         private void DrawZoneInfos(Rect mainRect, Rect viewRect, Rect headerRect, ref float singleInfoWidth, ref float num, ref float num2, ref float num3, List<SingleZoneGrowingData> list)
         {
             bool success = false;
 
             foreach (SingleZoneGrowingData data in list)
             {
-                Log.Message("" + num + " .. " + num2 + " .. " + num3);
                 if (num > num2 && num < num3)
                 {
                     Rect rect1 = new Rect(mainRect.x, num, viewRect.width, MULTIPLE_INFO_DATAROW_HEIGHT);
@@ -290,6 +327,12 @@ namespace ZoneInspectData
                 Widgets.Label(nonHarvestableCellRectLabel, "x" + (data.totalPlantedCount - data.harvestablePlants.Count));
                 Widgets.Label(harvestableCellRectLabel, "x" + data.harvestablePlants.Count);
                 Widgets.Label(fullyGrownCellRectLabel, "x" + data.fullyGrownPlants.Count);
+                //additional feature
+                Widgets.DrawHighlightIfMouseover(rect);
+                if (Widgets.ButtonInvisible(rect)) {
+                    Find.Selector.ClearSelection();
+                    Find.Selector.Select(data.zone);
+                }
             }
             catch (Exception e)
             {
@@ -309,8 +352,8 @@ namespace ZoneInspectData
                 GatherSingleZoneData(zone, out newData);
                 dataList.Add(newData);
             }
-            
-            dataList.Sort((SingleZoneGrowingData  a, SingleZoneGrowingData b) => a.zone.GetPlantDefToGrow().label.CompareTo(b.zone.GetPlantDefToGrow().label));
+
+            UpdateSorting();
         }
 
         private void GatherSingleZoneData(Zone_Growing zone, out SingleZoneGrowingData data)
@@ -375,6 +418,23 @@ namespace ZoneInspectData
 
             curves.Add(growthValueDrawInfo);
             curves.Add(harvestableMarkerDrawInfo);
+        }
+
+        private void UpdateSorting()
+        {
+            //sort list
+            if (sortHarvestableDesc)
+            {
+                singleZoneDataList.SortByDescending((SingleZoneGrowingData x) => x.harvestablePlants.Count, (SingleZoneGrowingData x) => x.zone.GetPlantDefToGrow().label);
+            }
+            else if (sortFullyGrownDesc)
+            {
+                singleZoneDataList.SortByDescending((SingleZoneGrowingData x) => x.fullyGrownPlants.Count, (SingleZoneGrowingData x) => x.zone.GetPlantDefToGrow().label);
+            }
+            else
+            {
+                singleZoneDataList.Sort((SingleZoneGrowingData a, SingleZoneGrowingData b) => a.zone.GetPlantDefToGrow().label.CompareTo(b.zone.GetPlantDefToGrow().label));
+            }
         }
     }
 }
