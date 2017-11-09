@@ -80,7 +80,7 @@ namespace ZoneInspectData
                 
                 float num = mainRect.y;
                 float num2 = scrollPosition.y - DATAROW_HEIGHT;
-                float num3 = scrollPosition.y + mainRect.height;
+                float num3 = mainRect.y + scrollPosition.y + mainRect.height;
                 DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithIconLabelList, summedUpThingsWithIcon, true);
                 DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, false);
                 Widgets.EndScrollView();
@@ -178,6 +178,9 @@ namespace ZoneInspectData
             }
 
             calculatedViewRectHeight = (summedUpThingsWithIcon.Count + summedUpThingsWithoutIcon.Count) * DATAROW_HEIGHT;
+            summedUpThingsWithIconLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
+            summedUpThingsWithoutIconLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
+
         }
 
         private void UpdateLookupData(List<ThingDef> list, Dictionary<ThingDef, int> dict, Thing t)
@@ -191,21 +194,10 @@ namespace ZoneInspectData
             {
                 dict.Add(t.def, t.stackCount);
             }
-
+            
             if (! list.Contains(t.def))
             {
-                int index = 0;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (list[i].label.CompareTo(t.def.label) > 0)
-                    {                        
-                        break;
-                    } else
-
-                    index++;
-                }
-
-                list.Insert(index, t.def);
+                list.Add(t.def);
             }
         }
     }
