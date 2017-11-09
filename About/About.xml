@@ -2,7 +2,7 @@
 <ModMetaData>
 	<name>ZoneInspectData [A18]</name>
 	<author>Varisha</author>
-	<targetVersion>0.18.1712</targetVersion>
+	<targetVersion>0.18.1717</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
 Current Version: 1.1.18.2
@@ -36,9 +36,7 @@ Release-Notes:
 v1.1.18.2:
  - farm zones single selection: Included total number of fully grown plants and realigned information below graph. You can now select the things via the icons below the graph (for harvestable and fully grown plants)
  - farm zones multiple selection: Added data view. 
- 
-Release-Notes:
-**************
+
 v1.1.18.1:
  - fixed graph implementation for A18 (not compatible with A17)
 
