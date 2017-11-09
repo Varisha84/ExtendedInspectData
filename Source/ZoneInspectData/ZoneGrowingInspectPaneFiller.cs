@@ -151,7 +151,10 @@ namespace ZoneInspectData
                     Find.Selector.ClearSelection();
                     foreach (Thing t in singleZoneData.harvestablePlants)
                     {
-                        Find.Selector.Select(t, false);
+                        if (!t.Destroyed)
+                        {
+                            Find.Selector.Select(t, false);
+                        }
                     }
                 }
 
