@@ -169,7 +169,9 @@ namespace ZoneInspectData
                     Find.Selector.ClearSelection();
                     foreach (Thing t in singleZoneData.fullyGrownPlants)
                     {
-                        Find.Selector.Select(t, false);
+                        if (!t.Destroyed) {
+                            Find.Selector.Select(t, false);
+                        }
                     }
                 }
             }
@@ -259,12 +261,6 @@ namespace ZoneInspectData
 
         private void DrawScrollView(Rect rect, Rect labelHeaderRect, Rect iconHeaderRect, ref float singleInfoWidth)
         {
-            Log.Message(" start scrollview >>>>> ");
-            foreach (SingleZoneGrowingData szgd in singleZoneDataList)
-            {
-                Log.Message(szgd.zone.GetPlantDefToGrow() + " .. " + szgd.fullyGrownPlants.Count);
-            }
-            Log.Message(" ... DONE <<<<< ");
             Text.WordWrap = true;
             float calculatedViewHeight = singleZoneDataList.Count * MULTIPLE_INFO_DATAROW_HEIGHT;
             Rect mainRect = new Rect(labelHeaderRect.x, labelHeaderRect.yMax + 15, rect.width - 28f, rect.height - labelHeaderRect.yMax - 18f);

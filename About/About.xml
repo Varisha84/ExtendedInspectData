@@ -27,11 +27,15 @@ Below the graph you find the following information from left to right
  - Total number of plants that can be harvested (right of white line)
  - Total number of fully grown plants (growth value = 100%)
 
+Multiple selection of farm zones:
+ - List can be sorted by fully grown plants or harvestable plants (descending only)
+ - Single entry in list can be selected which results in single selection view of this zone.
  
 Release-Notes:
 **************
 v1.1.17.5:
  - farm zones single selection: Included total number of fully grown plants and realigned information below graph. You can now select the things via the icons below the graph (for harvestable and fully grown plants)
+ - farm zones multiple selection: Added data view. 
 
 v1.1.17.4:
  - included graph for single selection of farm zones (not compatible with A18 => Look for mod "ZoneInspectData [A18]")
