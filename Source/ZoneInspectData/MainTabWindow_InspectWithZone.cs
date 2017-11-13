@@ -11,6 +11,7 @@ namespace ZoneInspectData
     {
         private ZoneStockpileInspectPaneFiller zoneStockpileInspectPanelFiller;
         private ZoneGrowingInspectPaneFiller zoneGrowingInspectPanelFiller;
+        private BuildingStorageInspectPaneFiller storageInspectPanelFiller;
 
 
         //To change default height of the inspect window in certain cases. Does not change width as
@@ -37,6 +38,7 @@ namespace ZoneInspectData
         {
             zoneStockpileInspectPanelFiller = new ZoneStockpileInspectPaneFiller();
             zoneGrowingInspectPanelFiller = new ZoneGrowingInspectPaneFiller();
+            storageInspectPanelFiller = new BuildingStorageInspectPaneFiller();
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -48,19 +50,21 @@ namespace ZoneInspectData
             {
                 Zone_Stockpile selStockpileZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Stockpile;
                 Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Growing;
+                Building_Storage storage = ((ISelectable)Find.Selector.SingleSelectedObject) as Building_Storage;
 
                 //single selection
                 if (selStockpileZone != null)
                 {
-                    Rect rect = inRect.AtZero();
-                    rect.yMin += 26f;
-                    zoneStockpileInspectPanelFiller.DoPaneContentsFor(selStockpileZone, rect);
+                    zoneStockpileInspectPanelFiller.DoPaneContentsFor(selStockpileZone, inRect);
                 }
                 else if (selGrowingZone != null)
                 {
                     zoneGrowingInspectPanelFiller.DoPaneContentsFor(new List<Zone_Growing>() { selGrowingZone }, inRect);
                 }
-                else
+                else if (storage != null)
+                {
+                    storageInspectPanelFiller.DoPaneContentsFor(new List<Building_Storage>() { storage }, inRect);
+                } else
                 {
                     flagReset = true;
                 }
@@ -70,7 +74,15 @@ namespace ZoneInspectData
                 List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
                 if (things.Count == Find.Selector.NumSelected)
                 {
-                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(things.Cast<Zone_Growing>().ToList(),  inRect);
+                    zoneGrowingInspectPanelFiller.DoPaneContentsFor(things.Cast<Zone_Growing>().ToList(), inRect);
+                }
+                else
+                {
+                    things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_Storage) != null);
+                    if (things.Count == Find.Selector.NumSelected)
+                    {
+                        storageInspectPanelFiller.DoPaneContentsFor(things.Cast<Building_Storage>().ToList(), inRect);
+                    }
                 }
             } else
             {
@@ -81,6 +93,7 @@ namespace ZoneInspectData
             {
                 zoneStockpileInspectPanelFiller.ResetData();
                 zoneGrowingInspectPanelFiller.ResetData();
+                storageInspectPanelFiller.ResetData();
             }
         }
     }
