@@ -16,12 +16,10 @@ namespace ZoneInspectData
         private readonly HashSet<ThingDef> thingDefinitions;
         
         //map thingdef to total stackcount 
-        private readonly Dictionary<ThingDef, int> summedUpThingsWithIcon;
-        private readonly Dictionary<ThingDef, int> summedUpThingsWithoutIcon;
+        private readonly Dictionary<ThingDef, int> summedUpThings;
 
         //used for sorting
-        private readonly List<ThingDef> summedUpThingsWithIconLabelList;
-        private readonly List<ThingDef> summedUpThingsWithoutIconLabelList;
+        private readonly List<ThingDef> summedUpThingsLabelList;
 
         private Zone_Stockpile lastZoneInspected;
         private Vector2 scrollPosition;
@@ -37,10 +35,8 @@ namespace ZoneInspectData
         {
             lastZoneInspected = null;
             scrollPosition = Vector2.zero;
-            summedUpThingsWithIcon = new Dictionary<ThingDef, int>();
-            summedUpThingsWithoutIcon = new Dictionary<ThingDef, int>();
-            summedUpThingsWithIconLabelList = new List<ThingDef>();
-            summedUpThingsWithoutIconLabelList = new List<ThingDef>();
+            summedUpThings = new Dictionary<ThingDef, int>();
+            summedUpThingsLabelList = new List<ThingDef>();
 
             IEnumerable<TreeNode_ThingCategory> categories = ThingCategoryNodeDatabase.AllThingCategoryNodes;
             thingDefinitions = new HashSet<ThingDef>();
@@ -54,7 +50,7 @@ namespace ZoneInspectData
             }
 
             //init drawing data to reduce object handling each draw cycle
-            mainRect = new Rect(16f, 20f, 0f, 0f);
+            mainRect = new Rect(16f, 46f, 0f, 0f);
             viewRect = new Rect(mainRect.x, mainRect.y, 0f, 0f);
         }
 
@@ -73,7 +69,7 @@ namespace ZoneInspectData
                 Text.Font = GameFont.Small;
 
                 mainRect.width = rect.width - 28f;
-                mainRect.height = rect.height - 28f;
+                mainRect.height = rect.height - 54f;
                 viewRect.width = mainRect.width - 20f;
                 viewRect.height = calculatedViewRectHeight;
                 Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
@@ -81,8 +77,7 @@ namespace ZoneInspectData
                 float num = mainRect.y;
                 float num2 = scrollPosition.y - DATAROW_HEIGHT;
                 float num3 = mainRect.y + scrollPosition.y + mainRect.height;
-                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithIconLabelList, summedUpThingsWithIcon, true);
-                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, false);
+                DrawThings(mainRect, viewRect, ref num, ref num2, ref num3, summedUpThingsLabelList, summedUpThings);
                 Widgets.EndScrollView();
             }
             catch (Exception ex)
@@ -108,7 +103,7 @@ namespace ZoneInspectData
             scrollPosition = Vector2.zero;
         }
 
-        private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, List<ThingDef> list, Dictionary<ThingDef, int> dict, bool drawIcon)
+        private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, List<ThingDef> list, Dictionary<ThingDef, int> dict)
         {
             bool success = false;
             foreach (ThingDef tDef in list)
@@ -116,7 +111,7 @@ namespace ZoneInspectData
                 if (num > num2 && num < num3)
                 {
                     Rect rect2 = new Rect(mainRect.x, num, viewRect.width, DATAROW_HEIGHT);
-                    success = DrawDataRow(rect2, tDef, dict[tDef], drawIcon);
+                    success = DrawDataRow(rect2, tDef, dict[tDef]);
                 }
                 else
                 {
@@ -130,12 +125,12 @@ namespace ZoneInspectData
             }
         }
 
-        private bool DrawDataRow(Rect rect, ThingDef tDef, int value, bool drawIcon)
+        private bool DrawDataRow(Rect rect, ThingDef tDef, int value)
         {
             bool result = true;
             try
             {
-                if (drawIcon)
+                if (tDef.uiIcon != BaseContent.BadTex)
                 {
                     Rect rect1 = new Rect(rect.x, rect.y, ICON_WIDTH, ICON_WIDTH);
                     Widgets.ThingIcon(rect1, tDef);
@@ -144,6 +139,18 @@ namespace ZoneInspectData
                 Rect rect2 = new Rect(rect.x + 35, rect.y, rect.width - ICON_WIDTH - 35, rect.height);
                 GUI.color = Color.white;
                 Widgets.Label(rect2, tDef.label + " x" + value);
+                Widgets.DrawHighlightIfMouseover(rect);
+                if (Widgets.ButtonInvisible(rect))
+                {
+                    Find.Selector.ClearSelection();
+                    foreach (Thing t in lastZoneInspected.AllContainedThings)
+                    {
+                        if (t.def == tDef)
+                        {
+                            Find.Selector.Select(t, false, false);
+                        }
+                    }
+                }
             } catch (Exception e)
             {
                 result = false;
@@ -156,31 +163,19 @@ namespace ZoneInspectData
         private void SumUpThings(Zone_Stockpile zone)
         {
             lastZoneInspected = zone;
-            summedUpThingsWithIcon.Clear();
-            summedUpThingsWithoutIcon.Clear();
-            summedUpThingsWithIconLabelList.Clear();
-            summedUpThingsWithoutIconLabelList.Clear();
-            IEnumerator<Thing> thingIt = zone.AllContainedThings.GetEnumerator();
+            summedUpThings.Clear();
+            summedUpThingsLabelList.Clear();
 
             foreach (Thing t in zone.AllContainedThings)
             {
                 if (thingDefinitions.Contains(t.def))
                 {
-                    if (t.def.uiIcon != BaseContent.BadTex)
-                    {
-                        UpdateLookupData(summedUpThingsWithIconLabelList, summedUpThingsWithIcon, t);
-                    }
-                    else
-                    {
-                        UpdateLookupData(summedUpThingsWithoutIconLabelList, summedUpThingsWithoutIcon, t);
-                    }
+                    UpdateLookupData(summedUpThingsLabelList, summedUpThings, t);
                 }
             }
 
-            calculatedViewRectHeight = (summedUpThingsWithIcon.Count + summedUpThingsWithoutIcon.Count) * DATAROW_HEIGHT;
-            summedUpThingsWithIconLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
-            summedUpThingsWithoutIconLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
-
+            calculatedViewRectHeight = summedUpThings.Count * DATAROW_HEIGHT;
+            summedUpThingsLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
         }
 
         private void UpdateLookupData(List<ThingDef> list, Dictionary<ThingDef, int> dict, Thing t)
