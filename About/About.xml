@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ZoneInspectData [A18]</name>
+	<name>ExtendedInspectData [A18]</name>
 	<author>Varisha</author>
 	<targetVersion>0.18.1717</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.18.2
+Current Version: 1.1.18.3
 
-This mod will put some basic information into the inspect window for the current selected zone. 
+This mod adds basic information to the inspect window for the current selected items/zones.
 
-For zones to store things:
-The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
+Single selection of zones to store things:
+Adds a scrollable list of entries to the inspect window if a zone is selected. The list contains an icon, the label and the total number of things in the zone. 
 
+Single/Multiple selection of items to store things:
+Adds a scrollable list of entries to the inspect window if one or more items are selected. The list contains an icon, the label and the total number of things stored in the selected item(s). 
 
 Single selection of farm zones:
 Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
@@ -33,6 +35,10 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.1.18.3:
+ - storage zones: Click on a list entry to select the corresponding items
+ - list stored things for any "Building_Storage" item (like shelf .. single selection + multiselection)
+
 v1.1.18.2:
  - farm zones single selection: Included total number of fully grown plants and realigned information below graph. You can now select the things via the icons below the graph (for harvestable and fully grown plants)
  - farm zones multiple selection: Added data view. 
