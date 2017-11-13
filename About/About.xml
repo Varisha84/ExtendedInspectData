@@ -5,7 +5,7 @@
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.17.5
+Current Version: 1.1.17.6
 
 This mod will put some basic information into the inspect window for the current selected zone. 
 
@@ -33,6 +33,10 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.1.17.6:
+ - storage zones: Click on a list entry to select the corresponding items
+ - list stored things for any "Building_Storage" item (like shelf .. single selection + multiselection)
+ 
 v1.1.17.5:
  - farm zones single selection: Included total number of fully grown plants and realigned information below graph. You can now select the things via the icons below the graph (for harvestable and fully grown plants)
  - farm zones multiple selection: Added data view. 
