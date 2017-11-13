@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ZoneInspectData [A17]</name>
+	<name>ExtendedInspectData [A17]</name>
 	<author>Varisha</author>
 	<targetVersion>0.17.1557</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
 Current Version: 1.1.17.6
 
-This mod will put some basic information into the inspect window for the current selected zone. 
+This mod adds basic information to the inspect window for the current selected items/zones.
 
-For zones to store things:
-The mod analyzes the stored items in a zone and performs some magic. It adds a scrollable list of entries into the inspect window if a zone is selected. The default handling for other selections is not touched! The list contains an icon, the label and the total number of things in the zone. 
+Single selection of zones to store things:
+Adds a scrollable list of entries to the inspect window if a zone is selected. The list contains an icon, the label and the total number of things in the zone. 
 
+Single/Multiple selection of items to store things:
+Adds a scrollable list of entries to the inspect window if one or more items are selected. The list contains an icon, the label and the total number of things stored in the selected item(s). 
 
-For zones to grow plants:
+Single selection of farm zones:
 Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
 The graph contains these information:
  - x axis = growth value in percent (a plant has growth value of 0-100%)
- - y axis = percentage of total planted plants in the zone that reached growth value x
+ - y axis = percentage of total planted plants in the zone that reached growth value x (let's say i have like 8 percent of plants that reached growth value ~52% and 13% are around 100% growth value)
  - The white vertical line marks the growth value that is needed to harvest a plant.
 
 Below the graph you find the following information from left to right
