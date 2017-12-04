@@ -35,15 +35,12 @@ namespace ZoneInspectData
                     if (things.Count == 1)
                     {
                         zoneGrowingInspectPanelFiller.HeightOffset = lines + 1f;
-                        Log.Message("Zeilen: " + lines + " .. HeightOffset: " + zoneGrowingInspectPanelFiller.HeightOffset);
                     }
                     else
                     {
                         zoneGrowingInspectPanelFiller.HeightOffset = 0f;
-                        Log.Message("Zeilen: " + lines + " .. HeightOffset: " + zoneGrowingInspectPanelFiller.HeightOffset);
                     }
 
-                    Log.Message("" + baseSize.y + " .. " + Math.Max(baseSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
                     return new Vector2(baseSize.x, Math.Max(baseSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
                 }
                 else

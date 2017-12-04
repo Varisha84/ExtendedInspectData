@@ -15,7 +15,7 @@ namespace ZoneInspectData
         private static readonly int GROWINGZONE_FIX_ADDITIONAL_HEIGHT = 160;
         private static readonly int GROWINGZONE_SINGLE_SELECT_INFOHEIGHT = 72;
         private static readonly int GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT = 140;
-        private static readonly int GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT = 20;
+        private static readonly int GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT = 15;
         private static readonly float MULTIPLE_INFO_DATAROW_HEIGHT = 28f;
         private static readonly float REQUIRED_HEIGHT = GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT + GROWINGZONE_SINGLE_SELECT_INFOHEIGHT + GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT;
         private static readonly int GROWINGZONE_GRAPH_REFRESHRATE = Verse.GenTicks.TickRareInterval * 2;
@@ -124,7 +124,7 @@ namespace ZoneInspectData
                 SingleZoneGrowingData singleZoneData = singleZoneDataList[0];
                 GUI.BeginGroup(rect);
                 //-20f for x due to adjustments when displaying measures
-                Rect yAxisLabelRect = new Rect(12f, heightOffset + TOP_BOTTOM_OFFSET, rect.width - 12f, GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT);
+                Rect yAxisLabelRect = new Rect(12f, heightOffset + TOP_BOTTOM_OFFSET + 10f, rect.width - 12f, GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT);
                 Rect graphRect = new Rect(-20f, yAxisLabelRect.yMax, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
                 Rect xAxisLabelRect = new Rect(12f, graphRect.yMax - 6f, rect.width - 36f, 20f);
                 Rect infoRect = new Rect(40f, xAxisLabelRect.yMax, graphRect.width - 80f, GROWINGZONE_SINGLE_SELECT_INFOHEIGHT);
