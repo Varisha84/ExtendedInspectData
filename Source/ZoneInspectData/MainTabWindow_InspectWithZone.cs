@@ -3,6 +3,7 @@ using Verse;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace ZoneInspectData
 {
@@ -24,10 +25,46 @@ namespace ZoneInspectData
                 Vector2 baseSize = base.RequestedTabSize;
 
                 List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
-                if (things.Count == Find.Selector.NumSelected)
+                string inspectString;
+
+                if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
                 {
-                    //get default size
-                    return new Vector2(baseSize.x, baseSize.y + ZoneGrowingInspectPaneFiller.GROWINGZONE_SINGLE_SELECT_ADDITIONAL_HEIGHT);
+                    inspectString = ((Zone_Growing)things[0]).GetInspectString();
+                    int lines = inspectString.Length - inspectString.Replace("\n", string.Empty).Length;
+
+                    if (things.Count == 1)
+                    {
+                        zoneGrowingInspectPanelFiller.HeightOffset = lines + 1f;
+                        Log.Message("Zeilen: " + lines + " .. HeightOffset: " + zoneGrowingInspectPanelFiller.HeightOffset);
+                    }
+                    else
+                    {
+                        zoneGrowingInspectPanelFiller.HeightOffset = 0f;
+                        Log.Message("Zeilen: " + lines + " .. HeightOffset: " + zoneGrowingInspectPanelFiller.HeightOffset);
+                    }
+
+                    Log.Message("" + baseSize.y + " .. " + Math.Max(baseSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
+                    return new Vector2(baseSize.x, Math.Max(baseSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
+                }
+                else
+                {
+                    things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_Storage) != null);
+                    if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
+                    {
+                        inspectString = ((Building_Storage)things[0]).GetInspectString();
+                        int lines = inspectString.Length - inspectString.Replace("\n", string.Empty).Length;
+
+                        if (things.Count == 1)
+                        {
+                            storageInspectPanelFiller.HeightOffset = lines + 1f;
+                        }
+                        else
+                        {                          
+                            storageInspectPanelFiller.HeightOffset = 0f;                          
+                        }
+
+                        return new Vector2(baseSize.x, Math.Max(baseSize.y, storageInspectPanelFiller.HeightOffset + storageInspectPanelFiller.RequiredHeight));
+                    }
                 }
 
                 return baseSize;

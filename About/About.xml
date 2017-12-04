@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ExtendedInspectData [A18]</name>
+	<name>ExtendedInspectData [B18]</name>
 	<author>Varisha</author>
-	<targetVersion>0.18.1717</targetVersion>
+	<targetVersion>0.18.1722</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.18.3
+Current Version: 1.1.18.4
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -14,6 +14,7 @@ Adds a scrollable list of entries to the inspect window if a zone is selected. T
 
 Single/Multiple selection of items to store things:
 Adds a scrollable list of entries to the inspect window if one or more items are selected. The list contains an icon, the label and the total number of things stored in the selected item(s). 
+Due to dynamic height calculation there might be empty space in inspection window if less than 4 differen types of items stored.
 
 Single selection of farm zones:
 Adds a graph to the inspect window showing the distribution of growth values of the plants in the zone.
@@ -35,6 +36,9 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.1.18.4:
+ - dynamic height calculation for farm zones and "Building_Storage" items (fixed overlapping texts of RimFridge mod)
+ 
 v1.1.18.3:
  - storage zones: Click on a list entry to select the corresponding items
  - list stored things for any "Building_Storage" item (like shelf .. single selection + multiselection)
