@@ -73,7 +73,6 @@ namespace ZoneInspectData
         {
             get
             {
-                Log.Message("requested Y: " + requestedSize.y + " .. Tab Y: " + ((float)UI.screenHeight - requestedSize.y - 35f));
                 return (float)UI.screenHeight - requestedSize.y - 35f;
             }
         }
@@ -87,7 +86,6 @@ namespace ZoneInspectData
 
         public override void ExtraOnGUI()
         {
-            Log.Message("ExtraOnGui");
             base.ExtraOnGUI();
             MyInspectPaneUtility.ExtraOnGUI(this);
             if (this.AnythingSelected && Find.DesignatorManager.SelectedDesignator != null)
