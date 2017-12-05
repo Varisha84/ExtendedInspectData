@@ -14,6 +14,7 @@ namespace ZoneInspectData
         private ZoneGrowingInspectPaneFiller zoneGrowingInspectPanelFiller;
         private BuildingStorageInspectPaneFiller storageInspectPanelFiller;
 
+        private Vector2 requestedSize;
 
         //To change default height of the inspect window in certain cases. Does not change width as
         //RimWorld.InspectGizmoGrid.DrawInspectGizmoGridFor uses static distance to inspect pane that cannot be 
@@ -22,7 +23,7 @@ namespace ZoneInspectData
         {
             get
             {
-                Vector2 baseSize = base.RequestedTabSize;
+                requestedSize = base.RequestedTabSize;
 
                 List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
                 string inspectString;
@@ -41,7 +42,7 @@ namespace ZoneInspectData
                         zoneGrowingInspectPanelFiller.HeightOffset = 0f;
                     }
 
-                    return new Vector2(baseSize.x, Math.Max(baseSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
+                    requestedSize= new Vector2(requestedSize.x, Math.Max(requestedSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
                 }
                 else
                 {
@@ -60,11 +61,20 @@ namespace ZoneInspectData
                             storageInspectPanelFiller.HeightOffset = 0f;                          
                         }
 
-                        return new Vector2(baseSize.x, Math.Max(baseSize.y, storageInspectPanelFiller.HeightOffset + storageInspectPanelFiller.RequiredHeight));
+                        requestedSize = new Vector2(requestedSize.x, Math.Max(requestedSize.y, storageInspectPanelFiller.HeightOffset + storageInspectPanelFiller.RequiredHeight));
                     }
                 }
 
-                return baseSize;
+                return requestedSize;
+            }
+        }
+
+        public float PaneTopYNew
+        {
+            get
+            {
+                Log.Message("requested Y: " + requestedSize.y + " .. Tab Y: " + ((float)UI.screenHeight - requestedSize.y - 35f));
+                return (float)UI.screenHeight - requestedSize.y - 35f;
             }
         }
 
@@ -73,6 +83,17 @@ namespace ZoneInspectData
             zoneStockpileInspectPanelFiller = new ZoneStockpileInspectPaneFiller();
             zoneGrowingInspectPanelFiller = new ZoneGrowingInspectPaneFiller();
             storageInspectPanelFiller = new BuildingStorageInspectPaneFiller();
+        }
+
+        public override void ExtraOnGUI()
+        {
+            Log.Message("ExtraOnGui");
+            base.ExtraOnGUI();
+            MyInspectPaneUtility.ExtraOnGUI(this);
+            if (this.AnythingSelected && Find.DesignatorManager.SelectedDesignator != null)
+            {
+                Find.DesignatorManager.SelectedDesignator.DoExtraGuiControls(0f, this.PaneTopYNew);
+            }
         }
 
         public override void DoWindowContents(Rect inRect)

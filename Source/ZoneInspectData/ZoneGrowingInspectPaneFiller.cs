@@ -12,7 +12,6 @@ namespace ZoneInspectData
     {
         private static readonly float TITLE_OFFSET = 40f;
         private static readonly float TOP_BOTTOM_OFFSET = 18f;
-        private static readonly int GROWINGZONE_FIX_ADDITIONAL_HEIGHT = 160;
         private static readonly int GROWINGZONE_SINGLE_SELECT_INFOHEIGHT = 72;
         private static readonly int GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT = 140;
         private static readonly int GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT = 15;
