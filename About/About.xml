@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ExtendedInspectData [B18]</name>
+	<name>ExtendedInspectData [B19]</name>
 	<author>Varisha</author>
-	<targetVersion>0.18.1722</targetVersion>
+	<targetVersion>0.19.2009</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.18.5
+Current Version: 1.1.19.0
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -36,6 +36,9 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.1.19.0:
+ - update to be compatible with rimworld B19 release (not compatible with B18)
+
 v1.1.18.5:
  - Bug fix for missing pane tab buttons on storage items (like shelf or fridges)
  
