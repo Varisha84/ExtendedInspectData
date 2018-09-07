@@ -8,8 +8,11 @@ namespace ZoneInspectData
 {
     class BuildingStorageInspectPaneFiller
     {
-        private static readonly float ICON_WIDTH = 27f;
         private static readonly float DATAROW_HEIGHT = 28f;
+        private static readonly float ICON_WIDTH = 27f;
+        private static readonly float REQUIRED_HEIGHT = 4 * DATAROW_HEIGHT;
+        private static readonly float TITLE_OFFSET = 40f;
+        private static readonly float TOP_BOTTOM_OFFSET = 18f;
 
         //set of things to consider for listing (basically anything that can be set in zone settings filter)
         private readonly HashSet<ThingDef> thingDefinitions;
@@ -27,8 +30,28 @@ namespace ZoneInspectData
         private Rect mainRect;
         private Rect viewRect;
         private float calculatedViewRectHeight;
+        private float heightOffset;
 
+        public float HeightOffset
+        {
+            get
+            {
+                return heightOffset;
+            }
 
+            set
+            {
+                this.heightOffset = TITLE_OFFSET + value * 18;
+            }
+        }
+
+        public float RequiredHeight
+        {
+            get
+            {
+                return REQUIRED_HEIGHT + (TOP_BOTTOM_OFFSET * 2);
+            }
+        }
 
         public BuildingStorageInspectPaneFiller()
         {
@@ -68,7 +91,7 @@ namespace ZoneInspectData
                 Text.Font = GameFont.Small;
 
                 mainRect.width = rect.width - 28f;
-                mainRect.height = rect.height - mainRect.y - 8f;
+                mainRect.height = rect.height - mainRect.y - TOP_BOTTOM_OFFSET;
                 viewRect.width = mainRect.width - 20f;
                 viewRect.height = calculatedViewRectHeight;
                 Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
@@ -100,6 +123,7 @@ namespace ZoneInspectData
         {
             lastStoragesInspected = null;
             scrollPosition = Vector2.zero;
+            this.HeightOffset = 0f;
         }
 
         private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, List<ThingDef> list, Dictionary<ThingDef, int> dict)
@@ -184,15 +208,8 @@ namespace ZoneInspectData
             
             calculatedViewRectHeight = summedUpThings.Count * DATAROW_HEIGHT;
             summedUpThingsLabelList.Sort((ThingDef a, ThingDef b) => a.label.CompareTo(b.label));
-            if (storages.Count > 1)
-            {
-                mainRect.y= 48;
-                viewRect.y = mainRect.y;
-            } else
-            {
-                mainRect.y= 86;
-                viewRect.y = mainRect.y;
-            }
+            mainRect.y= heightOffset + TOP_BOTTOM_OFFSET;
+            viewRect.y = mainRect.y;
         }
 
         private void UpdateLookupData(List<ThingDef> list, Dictionary<ThingDef, int> dict, Thing t)

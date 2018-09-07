@@ -10,10 +10,13 @@ namespace ZoneInspectData
     [StaticConstructorOnStartup]
     public class ZoneGrowingInspectPaneFiller
     {
-        public static readonly int GROWINGZONE_SINGLE_SELECT_ADDITIONAL_HEIGHT = 160;
+        private static readonly float TITLE_OFFSET = 40f;
+        private static readonly float TOP_BOTTOM_OFFSET = 18f;
         private static readonly int GROWINGZONE_SINGLE_SELECT_INFOHEIGHT = 72;
         private static readonly int GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT = 140;
+        private static readonly int GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT = 15;
         private static readonly float MULTIPLE_INFO_DATAROW_HEIGHT = 28f;
+        private static readonly float REQUIRED_HEIGHT = GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT + GROWINGZONE_SINGLE_SELECT_INFOHEIGHT + GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT;
         private static readonly int GROWINGZONE_GRAPH_REFRESHRATE = Verse.GenTicks.TickRareInterval * 2;
         private static readonly Color AXIS_LABEL_COLOR = new Color(0.7f, 0.7f, 0.7f); //see RimWorld.SimpleCurveDrawer#DrawCurveMeasures color2
 
@@ -24,7 +27,7 @@ namespace ZoneInspectData
         private SimpleCurveDrawInfo growthValueDrawInfo;
         private SimpleCurveDrawInfo harvestableMarkerDrawInfo;
         private SimpleCurveDrawerStyle curveDrawerStyle;
-        private Vector2 graphSection;
+        private FloatRange graphSection;
         private Vector2 scrollPosition;
 
         private static readonly Texture2D emptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedNeed", true);
@@ -35,12 +38,34 @@ namespace ZoneInspectData
 
         private bool sortHarvestableDesc;
         private bool sortFullyGrownDesc;
+        private float heightOffset;
+
+        public float HeightOffset
+        {
+            get
+            {
+                return heightOffset;
+            }
+
+            set
+            {
+                this.heightOffset = TITLE_OFFSET + value * 18;
+            }
+        }
+
+        public float RequiredHeight
+        {
+            get
+            {
+                return REQUIRED_HEIGHT + (TOP_BOTTOM_OFFSET * 2);
+            }
+        }
 
 
         public ZoneGrowingInspectPaneFiller()
         {
             curves = new List<SimpleCurveDrawInfo>();
-            graphSection = new Vector2(0f, 101f);
+            graphSection = new FloatRange(0f, 101f);
             singleZoneDataList = new List<SingleZoneGrowingData>() {new SingleZoneGrowingData()};
             scrollPosition = Vector2.zero;
             sortHarvestableDesc = false;
@@ -87,6 +112,7 @@ namespace ZoneInspectData
         {
             singleZoneDataList.Clear();
             curves.Clear();
+            this.HeightOffset = 0f;
         }
 
         private void DrawSingleSelectionInfo(Rect rect)
@@ -97,10 +123,10 @@ namespace ZoneInspectData
                 SingleZoneGrowingData singleZoneData = singleZoneDataList[0];
                 GUI.BeginGroup(rect);
                 //-20f for x due to adjustments when displaying measures
-                Rect graphRect = new Rect(-20f, 90f, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
-                Rect yAxisLabelRect = new Rect(12f, 78f, graphRect.yMin - 12, 20);
-                Rect xAxisLabelRect = new Rect(12f, graphRect.yMax-6, rect.width - 36, 20);
-                Rect infoRect = new Rect(40f, xAxisLabelRect.yMax, graphRect.width - 80f, GROWINGZONE_SINGLE_SELECT_INFOHEIGHT - 12f);
+                Rect yAxisLabelRect = new Rect(12f, heightOffset + TOP_BOTTOM_OFFSET + 10f, rect.width - 12f, GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT);
+                Rect graphRect = new Rect(-20f, yAxisLabelRect.yMax, rect.width - 24f, GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT);
+                Rect xAxisLabelRect = new Rect(12f, graphRect.yMax - 6f, rect.width - 36f, 20f);
+                Rect infoRect = new Rect(40f, xAxisLabelRect.yMax, graphRect.width - 80f, GROWINGZONE_SINGLE_SELECT_INFOHEIGHT);
 
                 //draw graph and labels
                 Text.Anchor = TextAnchor.MiddleLeft;
@@ -205,7 +231,7 @@ namespace ZoneInspectData
                 float iconHeaderWidth = rect.width * 0.55f;
                 float singleInfoWidth = iconHeaderWidth / 5f;
 
-                Rect labelHeaderRect = new Rect(16f, rect.y + 60f, rect.width - iconHeaderWidth - 16f, 20f);
+                Rect labelHeaderRect = new Rect(16f, heightOffset + TOP_BOTTOM_OFFSET, rect.width - iconHeaderWidth - 16f, 20f);
                 Widgets.Label(labelHeaderRect, "PlantVerb".Translate());
                 Rect iconHeaderRect = new Rect(rect.width - iconHeaderWidth - 30, labelHeaderRect.y, iconHeaderWidth -20 , labelHeaderRect.height);
                 Rect iconRect1 = new Rect(iconHeaderRect.x + (singleInfoWidth / 2) - 10f, iconHeaderRect.y, 20f, labelHeaderRect.height);
