@@ -25,23 +25,12 @@ namespace ZoneInspectData
             {
                 requestedSize = base.RequestedTabSize;
 
+                SetHeightOffsets();
+
                 List<object> things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Zone_Growing) != null);
-                string inspectString;
 
                 if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
                 {
-                    inspectString = ((Zone_Growing)things[0]).GetInspectString();
-                    int lines = inspectString.Length - inspectString.Replace("\n", string.Empty).Length;
-
-                    if (things.Count == 1)
-                    {
-                        zoneGrowingInspectPanelFiller.HeightOffset = lines + 1f;
-                    }
-                    else
-                    {
-                        zoneGrowingInspectPanelFiller.HeightOffset = 0f;
-                    }
-
                     requestedSize= new Vector2(requestedSize.x, Math.Max(requestedSize.y, zoneGrowingInspectPanelFiller.HeightOffset + zoneGrowingInspectPanelFiller.RequiredHeight));
                 }
                 else
@@ -49,18 +38,6 @@ namespace ZoneInspectData
                     things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_Storage) != null);
                     if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
                     {
-                        inspectString = ((Building_Storage)things[0]).GetInspectString();
-                        int lines = inspectString.Length - inspectString.Replace("\n", string.Empty).Length;
-
-                        if (things.Count == 1)
-                        {
-                            storageInspectPanelFiller.HeightOffset = lines + 1f;
-                        }
-                        else
-                        {                          
-                            storageInspectPanelFiller.HeightOffset = 0f;                          
-                        }
-
                         requestedSize = new Vector2(requestedSize.x, Math.Max(requestedSize.y, storageInspectPanelFiller.HeightOffset + storageInspectPanelFiller.RequiredHeight));
                     }
                 }
@@ -98,6 +75,8 @@ namespace ZoneInspectData
         {
             base.DoWindowContents(inRect);
             bool flagReset = false;
+
+            SetHeightOffsets();
 
             if (Find.Selector.NumSelected == 1)
             {
@@ -147,6 +126,40 @@ namespace ZoneInspectData
                 zoneStockpileInspectPanelFiller.ResetData();
                 zoneGrowingInspectPanelFiller.ResetData();
                 storageInspectPanelFiller.ResetData();
+            }
+        }
+
+        //Moved out of RequestedTabSize due to issues with MainTabWindow_Inspect.SelectNextInCell()
+        private void SetHeightOffsets()
+        {
+            List<object> things = Find.Selector.SelectedObjects;
+
+            int lines = 0;
+
+            // When selecting something and then clicking onto empty space,
+            //  things will be empty before dialog MainTabWindow closes
+            if (!things.NullOrEmpty())
+            {
+                string inspectString = (things[0] as ISelectable).GetInspectString();
+                lines = inspectString.Length - inspectString.Replace("\n", string.Empty).Length;
+            }
+
+            if (things.Count == 1 && things[0] is Zone_Growing)
+            {
+                zoneGrowingInspectPanelFiller.HeightOffset = lines + 1f;
+            }
+            else
+            {
+                zoneGrowingInspectPanelFiller.HeightOffset = 0f;
+            }
+
+            if (things.Count == 1 && things[0] is Building_Storage)
+            {
+                storageInspectPanelFiller.HeightOffset = lines + 1f;
+            }
+            else
+            {
+                storageInspectPanelFiller.HeightOffset = 0f;
             }
         }
     }
