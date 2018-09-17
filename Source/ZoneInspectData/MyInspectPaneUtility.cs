@@ -7,7 +7,7 @@ namespace ZoneInspectData
 {
     //This class was created to fix the issue that tab buttons over inspect panel are not displayed if inspect panel is resized.
     //This is mostly copied from RimWorld sources and is therefor quite critical if core classes update or interfaces change
-
+    [StaticConstructorOnStartup]
     internal class MyInspectPaneUtility
     {
         private static readonly Texture2D InspectTabButtonFillTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.07450981f, 0.08627451f, 0.105882354f, 1f));
@@ -20,7 +20,10 @@ namespace ZoneInspectData
                 {
                     pane.SelectNextInCell();
                 }
-                pane.DrawInspectGizmos();
+                if (Current.ProgramState == ProgramState.Playing)
+                {
+                    pane.DrawInspectGizmos();
+                }
                 MyInspectPaneUtility.DoMyTabs(pane);
             }
         }
@@ -39,25 +42,25 @@ namespace ZoneInspectData
                 float num = InspectPaneUtility.PaneWidthFor(pane) - 72f;
                 float width = 0f;
                 bool flag = false;
-                foreach (InspectTabBase current in pane.CurTabs)
+                foreach (InspectTabBase curTab in pane.CurTabs)
                 {
-                    if (current.IsVisible)
+                    if (curTab.IsVisible)
                     {
                         Rect rect = new Rect(num, y, 72f, 30f);
                         width = num;
                         Text.Font = GameFont.Small;
-                        if (Widgets.ButtonText(rect, current.labelKey.Translate(), true, false, true))
+                        if (Widgets.ButtonText(rect, curTab.labelKey.Translate()))
                         {
-                            MyInspectPaneUtility.InterfaceToggleTab(current, pane);
+                            MyInspectPaneUtility.InterfaceToggleTab(curTab, pane);
                         }
-                        bool flag2 = current.GetType() == pane.OpenTabType;
-                        if (!flag2 && !current.TutorHighlightTagClosed.NullOrEmpty())
+                        bool flag2 = curTab.GetType() == pane.OpenTabType;
+                        if (!flag2 && !curTab.TutorHighlightTagClosed.NullOrEmpty())
                         {
-                            UIHighlighter.HighlightOpportunity(rect, current.TutorHighlightTagClosed);
+                            UIHighlighter.HighlightOpportunity(rect, curTab.TutorHighlightTagClosed);
                         }
                         if (flag2)
                         {
-                            current.DoTabGUI();
+                            curTab.DoTabGUI();
                             pane.RecentHeight = 700f;
                             flag = true;
                         }
@@ -77,11 +80,10 @@ namespace ZoneInspectData
 
         private static void InterfaceToggleTab(InspectTabBase tab, IInspectPane pane)
         {
-            if (TutorSystem.TutorialMode && !MyInspectPaneUtility.IsOpen(tab, pane) && !TutorSystem.AllowAction("ITab-" + tab.tutorTag + "-Open"))
+            if (!TutorSystem.TutorialMode || IsOpen(tab, pane) || TutorSystem.AllowAction("ITab-" + tab.tutorTag + "-Open"))
             {
-                return;
+                MyInspectPaneUtility.ToggleTab(tab, pane);
             }
-            MyInspectPaneUtility.ToggleTab(tab, pane);
         }
 
         private static void ToggleTab(InspectTabBase tab, IInspectPane pane)
@@ -89,13 +91,13 @@ namespace ZoneInspectData
             if (MyInspectPaneUtility.IsOpen(tab, pane) || (tab == null && pane.OpenTabType == null))
             {
                 pane.OpenTabType = null;
-                SoundDefOf.TabClose.PlayOneShotOnCamera(null);
+                SoundDefOf.TabClose.PlayOneShotOnCamera();
             }
             else
             {
                 tab.OnOpen();
                 pane.OpenTabType = tab.GetType();
-                SoundDefOf.TabOpen.PlayOneShotOnCamera(null);
+                SoundDefOf.TabOpen.PlayOneShotOnCamera();
             }
         }
 
