@@ -5,7 +5,7 @@
 	<targetVersion>0.19.2009</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.19.0
+Current Version: 1.1.19.1
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -36,6 +36,9 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.1.19.1:
+ - fixed warning on startup
+
 v1.1.19.0:
  - update to be compatible with rimworld B19 release (not compatible with B18)
 

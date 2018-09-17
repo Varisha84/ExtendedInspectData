@@ -7,8 +7,8 @@
     <ProjectGuid>{F8578749-BBDD-49AA-ADC8-9B6187DF041A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZoneInspectData</RootNamespace>
-    <AssemblyName>ZoneInspectData</AssemblyName>
+    <RootNamespace>ExtendedInspectData</RootNamespace>
+    <AssemblyName>ExtendedInspectData</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
