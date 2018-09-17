@@ -1,5 +1,5 @@
 # ExtendedInspectData
-newest version: 1.1.19.0
+newest version: 1.1.19.1
 
 Features
 
