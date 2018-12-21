@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>ExtendedInspectData [B19]</name>
+	<name>ExtendedInspectData</name>
 	<author>Varisha</author>
-	<targetVersion>0.19.2009</targetVersion>
+	<targetVersion>1.0.2096</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.1.19.1
+Current Version: 1.2.1.1
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -36,6 +36,9 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.2.1.1:
+ - adjusted for RimWorld v1.0.2096
+
 v1.1.19.1:
  - fixed warning on startup
 
