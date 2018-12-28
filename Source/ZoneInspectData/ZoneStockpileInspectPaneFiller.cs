@@ -4,7 +4,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace ZoneInspectData
+namespace ExtendedInspectData
 
 {
     public class ZoneStockpileInspectPaneFiller
