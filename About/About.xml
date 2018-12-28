@@ -5,7 +5,7 @@
 	<targetVersion>1.0.2096</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.2.1.1
+Current Version: 1.2.1.2
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -36,6 +36,11 @@ Multiple selection of farm zones:
  
 Release-Notes:
 **************
+v1.2.1.2:
+ - Fixed issue with RimHUD tab buttons
+ - Fixed bug that a storage item itself is listed as item (e.g. fridges or shelfs)
+ - Changed patch mechanics to use Harmony-Library
+
 v1.2.1.1:
  - adjusted for RimWorld v1.0.2096
 

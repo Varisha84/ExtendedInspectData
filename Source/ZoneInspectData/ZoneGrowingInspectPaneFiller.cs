@@ -4,7 +4,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace ZoneInspectData
+namespace ExtendedInspectData
 
 {
     [StaticConstructorOnStartup]
@@ -20,6 +20,14 @@ namespace ZoneInspectData
         private static readonly int GROWINGZONE_GRAPH_REFRESHRATE = Verse.GenTicks.TickRareInterval * 2;
         private static readonly Color AXIS_LABEL_COLOR = new Color(0.7f, 0.7f, 0.7f); //see RimWorld.SimpleCurveDrawer#DrawCurveMeasures color2
 
+        private static readonly Texture2D emptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedNeed", true);
+        private static readonly Texture2D nonEmptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedWell", true);
+        private static readonly Texture2D nonHarvestableIcon = ContentFinder<Texture2D>.Get("UI/Widgets/FillChangeArrowRight", true);
+        private static readonly Texture2D harvestableIcon = ContentFinder<Texture2D>.Get("UI/Designators/Harvest", true);
+        private static readonly Texture2D fullyGrown = Widgets.CheckboxOnTex;
+
+        private static float heightOffset;
+
         private List<SimpleCurveDrawInfo> curves;
         private List<SingleZoneGrowingData> singleZoneDataList;
         private int lastTick;
@@ -29,18 +37,12 @@ namespace ZoneInspectData
         private SimpleCurveDrawerStyle curveDrawerStyle;
         private FloatRange graphSection;
         private Vector2 scrollPosition;
-
-        private static readonly Texture2D emptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedNeed", true);
-        private static readonly Texture2D nonEmptyCellCountIcon = ContentFinder<Texture2D>.Get("UI/Icons/Medical/TendedWell", true);
-        private static readonly Texture2D nonHarvestableIcon = ContentFinder<Texture2D>.Get("UI/Widgets/FillChangeArrowRight", true);
-        private static readonly Texture2D harvestableIcon = ContentFinder<Texture2D>.Get("UI/Designators/Harvest", true);
-        private static readonly Texture2D fullyGrown = Widgets.CheckboxOnTex;
-
+        
         private bool sortHarvestableDesc;
         private bool sortFullyGrownDesc;
-        private float heightOffset;
+        
 
-        public float HeightOffset
+        public static float HeightOffset
         {
             get
             {
@@ -49,11 +51,11 @@ namespace ZoneInspectData
 
             set
             {
-                this.heightOffset = TITLE_OFFSET + value * 18;
+                heightOffset = TITLE_OFFSET + value * 18;
             }
         }
 
-        public float RequiredHeight
+        public static float RequiredHeight
         {
             get
             {
@@ -112,7 +114,7 @@ namespace ZoneInspectData
         {
             singleZoneDataList.Clear();
             curves.Clear();
-            this.HeightOffset = 0f;
+            HeightOffset = 0f;
         }
 
         private void DrawSingleSelectionInfo(Rect rect)

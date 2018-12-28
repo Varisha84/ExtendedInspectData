@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace ZoneInspectData
+namespace ExtendedInspectData
 {
     class SingleZoneGrowingData
     {

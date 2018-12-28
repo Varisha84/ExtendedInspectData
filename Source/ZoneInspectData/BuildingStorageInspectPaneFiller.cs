@@ -4,7 +4,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace ZoneInspectData
+namespace ExtendedInspectData
 {
     class BuildingStorageInspectPaneFiller
     {
@@ -26,13 +26,14 @@ namespace ZoneInspectData
         private List<Building_Storage> lastStoragesInspected;
         private Vector2 scrollPosition;
 
-        //data used for drawing
+        //data used for 
+        private static float heightOffset;
         private Rect mainRect;
         private Rect viewRect;
         private float calculatedViewRectHeight;
-        private float heightOffset;
+        
 
-        public float HeightOffset
+        public static float HeightOffset
         {
             get
             {
@@ -41,11 +42,11 @@ namespace ZoneInspectData
 
             set
             {
-                this.heightOffset = TITLE_OFFSET + value * 18;
+                heightOffset = TITLE_OFFSET + value * 18;
             }
         }
 
-        public float RequiredHeight
+        public static float RequiredHeight
         {
             get
             {
@@ -123,7 +124,7 @@ namespace ZoneInspectData
         {
             lastStoragesInspected = null;
             scrollPosition = Vector2.zero;
-            this.HeightOffset = 0f;
+            HeightOffset = 0f;
         }
 
         private void DrawThings(Rect mainRect, Rect viewRect, ref float num, ref float num2, ref float num3, List<ThingDef> list, Dictionary<ThingDef, int> dict)
@@ -199,7 +200,7 @@ namespace ZoneInspectData
                 foreach (IntVec3 cell in storage.AllSlotCells())
                 {
                     foreach (Thing t in cell.GetThingList(storage.Map))
-                        if (thingDefinitions.Contains(t.def))
+                        if ((t != storage) && (thingDefinitions.Contains(t.def)))
                         {
                             UpdateLookupData(summedUpThingsLabelList, summedUpThings, t);
                         }
