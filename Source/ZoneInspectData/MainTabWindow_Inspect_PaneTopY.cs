@@ -26,6 +26,15 @@ namespace ExtendedInspectData
                     __result = (float)UI.screenHeight - __instance.RequestedTabSize.y - 35f;
                     return false;
                 }
+                else
+                {
+                    things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_PlantGrower) != null);
+                    if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
+                    {
+                        __result = (float)UI.screenHeight - __instance.RequestedTabSize.y - 35f;
+                        return false;
+                    }
+                }
             }
 
             return true;
