@@ -1,5 +1,5 @@
 # ExtendedInspectData
-newest version: 1.2.1.2
+newest version: 1.2.2.3
 
 Features
 
@@ -24,6 +24,7 @@ Below the graph you find the following information from left to right
  - Total number of plants that can be harvested (right of white line)
  - Total number of fully grown plants (growth value = 100%)
 
-Multiple selection of farm zones:
+Multiple selection of farm zones or plant growing buildings:
  - List can be sorted by fully grown plants or harvestable plants (descending only)
  - Single entry in list can be selected which results in single selection view of this zone.
+ - direct selection of harvestable or fully grown plants of a certain entry in the list
