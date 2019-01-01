@@ -8,7 +8,7 @@ namespace ExtendedInspectData
 
 {
     [StaticConstructorOnStartup]
-    internal class ZoneGrowingInspectPaneFiller
+    public class PlantGrowingInspectPaneFiller
     {
         private static readonly float TITLE_OFFSET = 40f;
         private static readonly float TOP_BOTTOM_OFFSET = 18f;
@@ -29,7 +29,7 @@ namespace ExtendedInspectData
         private static float heightOffset;
 
         private List<SimpleCurveDrawInfo> curves;
-        private List<SingleZoneGrowingData> singleZoneDataList;
+        private List<SinglePlantGrowerData> singlePlantGrowerDataList;
         private int lastTick;
 
         private SimpleCurveDrawInfo growthValueDrawInfo;
@@ -64,11 +64,11 @@ namespace ExtendedInspectData
         }
 
 
-        public ZoneGrowingInspectPaneFiller()
+        public PlantGrowingInspectPaneFiller()
         {
             curves = new List<SimpleCurveDrawInfo>();
             graphSection = new FloatRange(0f, 101f);
-            singleZoneDataList = new List<SingleZoneGrowingData>() {new SingleZoneGrowingData()};
+            singlePlantGrowerDataList = new List<SinglePlantGrowerData>() {new SinglePlantGrowerData()};
             scrollPosition = Vector2.zero;
             sortHarvestableDesc = false;
             sortFullyGrownDesc = false;
@@ -89,21 +89,21 @@ namespace ExtendedInspectData
             harvestableMarkerDrawInfo = new SimpleCurveDrawInfo();
         }
 
-        public void DoPaneContentsFor(List<Zone_Growing> zones, Rect rect)
+        public void DoPaneContentsFor(List<Building_PlantGrower> plantGrowers, Rect rect)
         {
             if (((Find.TickManager.TicksGame - lastTick) > GROWINGZONE_GRAPH_REFRESHRATE) || 
-                (singleZoneDataList.Count == 0) ||
-                (singleZoneDataList.Count != zones.Count) ||
-                ((singleZoneDataList.Count > 0) && (singleZoneDataList[0].zone != zones[0])))
+                (singlePlantGrowerDataList.Count == 0) ||
+                (singlePlantGrowerDataList.Count != plantGrowers.Count) ||
+                ((singlePlantGrowerDataList.Count > 0) && (singlePlantGrowerDataList[0].plantGrower != plantGrowers[0])))
             {
                 lastTick = Find.TickManager.TicksGame;
-                GatherData(zones, singleZoneDataList);
+                GatherData(plantGrowers, singlePlantGrowerDataList);
             }
 
-            if (singleZoneDataList.Count == 1)
+            if (singlePlantGrowerDataList.Count == 1)
             {
                 DrawSingleSelectionInfo(rect);
-            } else if (singleZoneDataList.Count > 1)
+            } else if (singlePlantGrowerDataList.Count > 1)
             {
                 DrawMultipleSelectionInfo(rect);
             }
@@ -112,7 +112,7 @@ namespace ExtendedInspectData
 
         public void ResetData()
         {
-            singleZoneDataList.Clear();
+            singlePlantGrowerDataList.Clear();
             curves.Clear();
             HeightOffset = 0f;
         }
@@ -122,7 +122,7 @@ namespace ExtendedInspectData
             //Draw Graph
             try
             {
-                SingleZoneGrowingData singleZoneData = singleZoneDataList[0];
+                SinglePlantGrowerData singleZoneData = singlePlantGrowerDataList[0];
                 GUI.BeginGroup(rect);
                 //-20f for x due to adjustments when displaying measures
                 Rect yAxisLabelRect = new Rect(12f, heightOffset + TOP_BOTTOM_OFFSET + 10f, rect.width - 12f, GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT);
@@ -149,7 +149,7 @@ namespace ExtendedInspectData
                 Rect iconRect1 = new Rect(infoRect.x + (singleInfoWidth/2) -10f, infoRect.y + 5f, 20f, 20f);
                 GUI.DrawTexture(iconRect1, emptyCellCountIcon);
                 Rect emptyCellRectLabel = new Rect(infoRect.x, iconRect1.yMax + 10f, singleInfoWidth, 20f);
-                Widgets.Label(emptyCellRectLabel, "x" + (singleZoneData.zone.Cells.Count - singleZoneData.totalPlantedCount));
+                Widgets.Label(emptyCellRectLabel, "x" + (singleZoneData.totalOccupiedCells - singleZoneData.totalPlantedCount));
 
                 //Draw total cells with plants
                 Rect iconRect2 = new Rect(iconRect1.x + singleInfoWidth, iconRect1.y, 20f, 20f);
@@ -293,7 +293,7 @@ namespace ExtendedInspectData
         private void DrawScrollView(Rect rect, Rect labelHeaderRect, Rect iconHeaderRect, ref float singleInfoWidth)
         {
             Text.WordWrap = true;
-            float calculatedViewHeight = singleZoneDataList.Count * MULTIPLE_INFO_DATAROW_HEIGHT;
+            float calculatedViewHeight = singlePlantGrowerDataList.Count * MULTIPLE_INFO_DATAROW_HEIGHT;
             Rect mainRect = new Rect(labelHeaderRect.x, labelHeaderRect.yMax + 15, rect.width - 28f, rect.height - labelHeaderRect.yMax - 18f);
             Rect viewRect = new Rect(mainRect.x, mainRect.y, mainRect.width - 20f, calculatedViewHeight);
             Widgets.DrawLineHorizontal(labelHeaderRect.x, mainRect.y - 5, mainRect.width);
@@ -303,15 +303,15 @@ namespace ExtendedInspectData
             float num = mainRect.y;
             float num2 = scrollPosition.y - MULTIPLE_INFO_DATAROW_HEIGHT;
             float num3 = mainRect.y + scrollPosition.y + mainRect.height;
-            DrawZoneInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singleZoneDataList);
+            DrawZoneInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singlePlantGrowerDataList);
             Widgets.EndScrollView();
         }
 
-        private void DrawZoneInfos(Rect mainRect, Rect viewRect, Rect headerRect, ref float singleInfoWidth, ref float num, ref float num2, ref float num3, List<SingleZoneGrowingData> list)
+        private void DrawZoneInfos(Rect mainRect, Rect viewRect, Rect headerRect, ref float singleInfoWidth, ref float num, ref float num2, ref float num3, List<SinglePlantGrowerData> list)
         {
             bool success = false;
 
-            foreach (SingleZoneGrowingData data in list)
+            foreach (SinglePlantGrowerData data in list)
             {
                 if (num > num2 && num < num3)
                 {
@@ -330,7 +330,7 @@ namespace ExtendedInspectData
             }
         }
 
-        private bool DrawZoneInfo(Rect rect, Rect headerRect, ref float singleInfoWidth, SingleZoneGrowingData data)
+        private bool DrawZoneInfo(Rect rect, Rect headerRect, ref float singleInfoWidth, SinglePlantGrowerData data)
         {
             bool result = true;
             try
@@ -340,7 +340,7 @@ namespace ExtendedInspectData
                 //write plant name
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Text.Font = GameFont.Small;
-                Widgets.Label(rect1, data.zone.GetPlantDefToGrow().label);
+                Widgets.Label(rect1, data.plantGrower.GetPlantDefToGrow().label);
                 //write numbers
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Text.Font = GameFont.Tiny;
@@ -349,9 +349,10 @@ namespace ExtendedInspectData
                 Rect nonHarvestableCellRectLabel = new Rect(nonEmptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
                 Rect harvestableCellRectLabel = new Rect(nonHarvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
                 Rect fullyGrownCellRectLabel = new Rect(harvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
-                Widgets.Label(emptyCellRectLabel, "x" + (data.zone.Cells.Count - data.totalPlantedCount));
+                Widgets.Label(emptyCellRectLabel, "x" + (data.totalOccupiedCells - data.totalPlantedCount));
                 Widgets.Label(nonEmptyCellRectLabel, "x" + data.totalPlantedCount);
                 Widgets.Label(nonHarvestableCellRectLabel, "x" + (data.totalPlantedCount - data.harvestablePlants.Count));
+
                 Widgets.Label(harvestableCellRectLabel, "x" + data.harvestablePlants.Count);
                 if (Mouse.IsOver(harvestableCellRectLabel))
                 {
@@ -390,61 +391,56 @@ namespace ExtendedInspectData
                 Widgets.DrawHighlightIfMouseover(rect);
                 if (Widgets.ButtonInvisible(rect)) {
                     Find.Selector.ClearSelection();
-                    Find.Selector.Select(data.zone);
+                    Find.Selector.Select(data.plantGrower);
                 }
             }
             catch (Exception e)
             {
                 result = false;
-                Log.Error("EXCEPTION in drawing data row: " + data.zone.GetPlantDefToGrow() + " .. " + e.Message);
+                Log.Error("EXCEPTION in drawing data row: " + data.plantGrower.GetPlantDefToGrow() + " .. " + e.Message);
             }
 
             return result;
         }
 
-        private void GatherData(List<Zone_Growing> zones, List<SingleZoneGrowingData> dataList)
+        private void GatherData(List<Building_PlantGrower> plantGrowers, List<SinglePlantGrowerData> dataList)
         {
             ResetData();
-            SingleZoneGrowingData newData;
-            foreach (Zone_Growing zone in zones)
+            SinglePlantGrowerData newData;
+            foreach (Building_PlantGrower plantGrower in plantGrowers)
             {
-                GatherSingleZoneData(zone, out newData);
+                GatherSingleZoneData(plantGrower, out newData);
                 dataList.Add(newData);
             }
 
             UpdateSorting();
         }
 
-        private void GatherSingleZoneData(Zone_Growing zone, out SingleZoneGrowingData data)
+        private void GatherSingleZoneData(Building_PlantGrower plantGrower, out SinglePlantGrowerData data)
         {
-            data = new SingleZoneGrowingData();
-            data.zone = zone;
+            data = new SinglePlantGrowerData();
+            data.plantGrower = plantGrower;
             
-            Plant plant;
             int growthRate;
-            float harvestMinGrowth = zone.GetPlantDefToGrow().plant.harvestMinGrowth * 100;
+            float harvestMinGrowth = plantGrower.GetPlantDefToGrow().plant.harvestMinGrowth * 100;
 
             //analyze growth values
-            foreach (Thing t in zone.AllContainedThings)
+            foreach (Plant plant in plantGrower.PlantsOnMe)
             {
-                if (t.def == zone.GetPlantDefToGrow())
-                {
-                    plant = t as Plant;
-                    if (plant != null)
-                    {                        
-                        growthRate = (int) (plant.Growth * 100);
-                        data.growRatesAbsolute[growthRate]++;
-                        data.totalPlantedCount++;
+                if (plant != null)
+                {                        
+                    growthRate = (int) (plant.Growth * 100);
+                    data.growRatesAbsolute[growthRate]++;
+                    data.totalPlantedCount++;
 
-                        if (growthRate >= 100)
-                        {
-                            data.fullyGrownPlants.Add(t);
-                        }
+                    if (growthRate >= 100)
+                    {
+                        data.fullyGrownPlants.Add(plant);
+                    }
 
-                        if (growthRate >= harvestMinGrowth)
-                        {
-                            data.harvestablePlants.Add(t);
-                        }
+                    if (growthRate >= harvestMinGrowth)
+                    {
+                        data.harvestablePlants.Add(plant);
                     }
                 }
             }
@@ -484,15 +480,15 @@ namespace ExtendedInspectData
             //sort list
             if (sortHarvestableDesc)
             {
-                singleZoneDataList.SortByDescending((SingleZoneGrowingData x) => x.harvestablePlants.Count, (SingleZoneGrowingData x) => x.zone.GetPlantDefToGrow().label);
+                singlePlantGrowerDataList.SortByDescending((SinglePlantGrowerData x) => x.harvestablePlants.Count, (SinglePlantGrowerData x) => x.plantGrower.GetPlantDefToGrow().label);
             }
             else if (sortFullyGrownDesc)
             {
-                singleZoneDataList.SortByDescending((SingleZoneGrowingData x) => x.fullyGrownPlants.Count, (SingleZoneGrowingData x) => x.zone.GetPlantDefToGrow().label);
+                singlePlantGrowerDataList.SortByDescending((SinglePlantGrowerData x) => x.fullyGrownPlants.Count, (SinglePlantGrowerData x) => x.plantGrower.GetPlantDefToGrow().label);
             }
             else
             {
-                singleZoneDataList.Sort((SingleZoneGrowingData a, SingleZoneGrowingData b) => a.zone.GetPlantDefToGrow().label.CompareTo(b.zone.GetPlantDefToGrow().label));
+                singlePlantGrowerDataList.Sort((SinglePlantGrowerData a, SinglePlantGrowerData b) => a.plantGrower.GetPlantDefToGrow().label.CompareTo(b.plantGrower.GetPlantDefToGrow().label));
             }
         }
     }

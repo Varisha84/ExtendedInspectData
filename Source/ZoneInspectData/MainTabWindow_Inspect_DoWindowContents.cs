@@ -13,6 +13,7 @@ namespace ExtendedInspectData
 
         private static ZoneStockpileInspectPaneFiller zoneStockpileInspectPanelFiller = new ZoneStockpileInspectPaneFiller();
         private static ZoneGrowingInspectPaneFiller zoneGrowingInspectPanelFiller = new ZoneGrowingInspectPaneFiller();
+        private static PlantGrowingInspectPaneFiller plantGrowingInspectPanelFiller = new PlantGrowingInspectPaneFiller();
         private static BuildingStorageInspectPaneFiller storageInspectPanelFiller = new BuildingStorageInspectPaneFiller();
 
         //private static Vector2 requestedSize;
@@ -27,6 +28,8 @@ namespace ExtendedInspectData
                 Zone_Stockpile selStockpileZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Stockpile;
                 Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Growing;
                 Building_Storage storage = ((ISelectable)Find.Selector.SingleSelectedObject) as Building_Storage;
+
+                plantGrowingInspectPanelFiller.ResetData();
 
                 //single selection
                 if (selStockpileZone != null)
@@ -63,6 +66,7 @@ namespace ExtendedInspectData
                     zoneGrowingInspectPanelFiller.DoPaneContentsFor(things.Cast<Zone_Growing>().ToList(), inRect);
                     storageInspectPanelFiller.ResetData();
                     zoneStockpileInspectPanelFiller.ResetData();
+                    plantGrowingInspectPanelFiller.ResetData();
                 }
                 else
                 {
@@ -72,6 +76,18 @@ namespace ExtendedInspectData
                         storageInspectPanelFiller.DoPaneContentsFor(things.Cast<Building_Storage>().ToList(), inRect);
                         zoneStockpileInspectPanelFiller.ResetData();
                         zoneGrowingInspectPanelFiller.ResetData();
+                        plantGrowingInspectPanelFiller.ResetData();
+                    }
+                    else
+                    {
+                        things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_PlantGrower) != null);
+                        if (things.Count == Find.Selector.NumSelected)
+                        {
+                            plantGrowingInspectPanelFiller.DoPaneContentsFor(things.Cast<Building_PlantGrower>().ToList(), inRect);
+                            storageInspectPanelFiller.ResetData();
+                            zoneStockpileInspectPanelFiller.ResetData();
+                            zoneGrowingInspectPanelFiller.ResetData();
+                        }
                     }
                 }
             }
@@ -80,6 +96,7 @@ namespace ExtendedInspectData
                 zoneStockpileInspectPanelFiller.ResetData();
                 zoneGrowingInspectPanelFiller.ResetData();
                 storageInspectPanelFiller.ResetData();
+                plantGrowingInspectPanelFiller.ResetData();
             }
         }
 
@@ -100,11 +117,11 @@ namespace ExtendedInspectData
 
             if (things.Count == 1 && things[0] is Zone_Growing)
             {
-                ZoneGrowingInspectPaneFiller.HeightOffset = lines + 1f;
+                PlantGrowingInspectPaneFiller.HeightOffset = lines + 1f;
             }
             else
             {
-                ZoneGrowingInspectPaneFiller.HeightOffset = 0f;
+                PlantGrowingInspectPaneFiller.HeightOffset = 0f;
             }
 
             if (things.Count == 1 && things[0] is Building_Storage)

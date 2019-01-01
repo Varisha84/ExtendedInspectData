@@ -28,6 +28,14 @@ namespace ExtendedInspectData
                 {
                     requestedSize = new Vector2(requestedSize.x, Math.Max(requestedSize.y, BuildingStorageInspectPaneFiller.HeightOffset + BuildingStorageInspectPaneFiller.RequiredHeight));
                 }
+                else
+                {
+                    things = Find.Selector.SelectedObjects.FindAll(thing => (thing as Building_PlantGrower) != null);
+                    if ((things.Count > 0) && (things.Count == Find.Selector.NumSelected))
+                    {
+                        requestedSize = new Vector2(requestedSize.x, Math.Max(requestedSize.y, PlantGrowingInspectPaneFiller.HeightOffset + PlantGrowingInspectPaneFiller.RequiredHeight));
+                    }
+                }
             }
 
             return requestedSize;
