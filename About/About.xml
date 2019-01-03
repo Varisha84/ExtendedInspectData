@@ -5,7 +5,7 @@
 	<targetVersion>1.0.2096</targetVersion>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.2.2.3
+Current Version: 1.2.2.4
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -37,9 +37,12 @@ Multiple selection of farm zones or plant growing buildings:
  
 Release-Notes:
 **************
+v1.2.2.4
+ - fixed bug with direct selection of fully grown plants in multi-selection view
+
 v1.2.2.3
  - Add support for multiple selection of plant growing buildings (like hydrophonic basins)
- - direct selection of harvestable or fully grown plants in multiselection view
+ - direct selection of harvestable or fully grown plants in multi-selection view
 
 v1.2.1.2:
  - Fixed issue with RimHUD tab buttons
