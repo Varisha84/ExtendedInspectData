@@ -377,7 +377,7 @@ namespace ExtendedInspectData
                 if (Widgets.ButtonInvisible(fullyGrownCellRectLabel))
                 {
                     Find.Selector.ClearSelection();
-                    foreach (Thing t in data.harvestablePlants)
+                    foreach (Thing t in data.fullyGrownPlants)
                     {
                         if (!t.Destroyed)
                         {

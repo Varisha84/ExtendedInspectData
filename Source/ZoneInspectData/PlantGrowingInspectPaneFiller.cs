@@ -303,11 +303,11 @@ namespace ExtendedInspectData
             float num = mainRect.y;
             float num2 = scrollPosition.y - MULTIPLE_INFO_DATAROW_HEIGHT;
             float num3 = mainRect.y + scrollPosition.y + mainRect.height;
-            DrawZoneInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singlePlantGrowerDataList);
+            DrawPlantGrowerInfos(mainRect, viewRect, iconHeaderRect, ref singleInfoWidth, ref num, ref num2, ref num3, singlePlantGrowerDataList);
             Widgets.EndScrollView();
         }
 
-        private void DrawZoneInfos(Rect mainRect, Rect viewRect, Rect headerRect, ref float singleInfoWidth, ref float num, ref float num2, ref float num3, List<SinglePlantGrowerData> list)
+        private void DrawPlantGrowerInfos(Rect mainRect, Rect viewRect, Rect headerRect, ref float singleInfoWidth, ref float num, ref float num2, ref float num3, List<SinglePlantGrowerData> list)
         {
             bool success = false;
 
@@ -316,7 +316,7 @@ namespace ExtendedInspectData
                 if (num > num2 && num < num3)
                 {
                     Rect rect1 = new Rect(mainRect.x, num, viewRect.width, MULTIPLE_INFO_DATAROW_HEIGHT);
-                    success = DrawZoneInfo(rect1, headerRect, ref singleInfoWidth, data);
+                    success = DrawPlantGrowerInfo(rect1, headerRect, ref singleInfoWidth, data);
                 }
                 else
                 {
@@ -330,7 +330,7 @@ namespace ExtendedInspectData
             }
         }
 
-        private bool DrawZoneInfo(Rect rect, Rect headerRect, ref float singleInfoWidth, SinglePlantGrowerData data)
+        private bool DrawPlantGrowerInfo(Rect rect, Rect headerRect, ref float singleInfoWidth, SinglePlantGrowerData data)
         {
             bool result = true;
             try
@@ -378,7 +378,7 @@ namespace ExtendedInspectData
                 if (Widgets.ButtonInvisible(fullyGrownCellRectLabel))
                 {
                     Find.Selector.ClearSelection();
-                    foreach (Thing t in data.harvestablePlants)
+                    foreach (Thing t in data.fullyGrownPlants)
                     {
                         if (!t.Destroyed)
                         {
