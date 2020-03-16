@@ -38,7 +38,7 @@ namespace ExtendedInspectData
             summedUpThings = new Dictionary<ThingDef, int>();
             summedUpThingsLabelList = new List<ThingDef>();
 
-            IEnumerable<TreeNode_ThingCategory> categories = ThingCategoryNodeDatabase.AllThingCategoryNodes;
+            IEnumerable<TreeNode_ThingCategory> categories = ThingCategoryNodeDatabase.allThingCategoryNodes;
             thingDefinitions = new HashSet<ThingDef>();
 
             foreach (TreeNode_ThingCategory tc in categories)

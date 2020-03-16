@@ -136,7 +136,7 @@ namespace ExtendedInspectData
                 GUI.color = AXIS_LABEL_COLOR;
                 Widgets.Label(yAxisLabelRect, "Value".Translate() + " (%)");
                 Text.Anchor = TextAnchor.UpperRight;
-                Widgets.Label(xAxisLabelRect, "PercentGrowth".Translate(new object[] { "%" }));
+                Widgets.Label(xAxisLabelRect, TranslatorFormattedStringExtensions.Translate("PercentGrowth", "%"));
                 SimpleCurveDrawer.DrawCurves(graphRect, this.curves, curveDrawerStyle, null);
 
                 //draw infos

@@ -1,5 +1,5 @@
 ﻿// Mod
-using Harmony;
+using HarmonyLib;
 using System.Reflection;
 using Verse;
 
@@ -8,12 +8,12 @@ internal static class Mod
 {
     public static readonly Assembly Assembly;
 
-    public static readonly HarmonyInstance Harmony;
+    public static readonly Harmony Harmony;
 
     static Mod()
     {
         Assembly = Assembly.GetExecutingAssembly();
-        Harmony = HarmonyInstance.Create("ExtendedInspectData");
+        Harmony = new Harmony("ExtendedInspectData");
         Harmony.PatchAll();
     }
 }
