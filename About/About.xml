@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>[1.0] ExtendedInspectData</name>
+	<name>[1.1] ExtendedInspectData</name>
 	<author>Varisha</author>
-	<targetVersion>1.0.2096</targetVersion>
+	<supportedVersions>
+      <li>1.1</li>
+   </supportedVersions>
+   <packageId>varisha.extendedinspectdata</packageId>
 	<url>https://ludeon.com/forums/index.php?topic=36614</url>
 	<description>
-Current Version: 1.2.2.4
+Current Version: 1.3.0.0
 
 This mod adds basic information to the inspect window for the current selected items/zones.
 
@@ -37,6 +40,9 @@ Multiple selection of farm zones or plant growing buildings:
  
 Release-Notes:
 **************
+v1.3.0.0
+ - update for RimWorld 1.1
+
 v1.2.2.4
  - fixed bug with direct selection of fully grown plants in multi-selection view
 
