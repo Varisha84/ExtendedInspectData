@@ -50,7 +50,7 @@ namespace ExtendedInspectData
             }
 
             //init drawing data to reduce object handling each draw cycle
-            mainRect = new Rect(16f, 46f, 0f, 0f);
+            mainRect = new Rect(16f, 52f, 0f, 0f);
             viewRect = new Rect(mainRect.x, mainRect.y, 0f, 0f);
         }
 
@@ -69,9 +69,9 @@ namespace ExtendedInspectData
                 Text.Font = GameFont.Small;
 
                 mainRect.width = rect.width - 28f;
-                mainRect.height = rect.height - 54f;
+                mainRect.height = rect.height - 56f;
                 viewRect.width = mainRect.width - 20f;
-                viewRect.height = calculatedViewRectHeight;
+                viewRect.height = calculatedViewRectHeight -4f;
                 Widgets.BeginScrollView(mainRect, ref scrollPosition, viewRect, true);
                 
                 float num = mainRect.y;
