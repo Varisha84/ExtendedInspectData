@@ -15,5 +15,6 @@ internal static class Mod
         Assembly = Assembly.GetExecutingAssembly();
         Harmony = new Harmony("ExtendedInspectData");
         Harmony.PatchAll();
+        Log.Message("Loaded ExtendedInspectData");
     }
 }

@@ -11,7 +11,7 @@ namespace ExtendedInspectData
     public class PlantGrowingInspectPaneFiller
     {
         private static readonly float TITLE_OFFSET = 40f;
-        private static readonly float TOP_BOTTOM_OFFSET = 18f;
+        private static readonly float TOP_BOTTOM_OFFSET = 62f;
         private static readonly int GROWINGZONE_SINGLE_SELECT_INFOHEIGHT = 72;
         private static readonly int GROWINGZONE_SINGLE_SELECT_GRAPHHEIGHT = 140;
         private static readonly int GROWINGZONE_SINGLE_SELECT_YAXIS_LABEL_HEIGHT = 15;
@@ -149,7 +149,7 @@ namespace ExtendedInspectData
                 Rect iconRect1 = new Rect(infoRect.x + (singleInfoWidth/2) -10f, infoRect.y + 5f, 20f, 20f);
                 GUI.DrawTexture(iconRect1, emptyCellCountIcon);
                 Rect emptyCellRectLabel = new Rect(infoRect.x, iconRect1.yMax + 10f, singleInfoWidth, 20f);
-                Widgets.Label(emptyCellRectLabel, "x" + (singleZoneData.totalOccupiedCells - singleZoneData.totalPlantedCount));
+                Widgets.Label(emptyCellRectLabel, "x" + (4 - singleZoneData.totalPlantedCount));
 
                 //Draw total cells with plants
                 Rect iconRect2 = new Rect(iconRect1.x + singleInfoWidth, iconRect1.y, 20f, 20f);
@@ -349,7 +349,7 @@ namespace ExtendedInspectData
                 Rect nonHarvestableCellRectLabel = new Rect(nonEmptyCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
                 Rect harvestableCellRectLabel = new Rect(nonHarvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
                 Rect fullyGrownCellRectLabel = new Rect(harvestableCellRectLabel.xMax, emptyCellRectLabel.y, singleInfoWidth, rect.height);
-                Widgets.Label(emptyCellRectLabel, "x" + (data.totalOccupiedCells - data.totalPlantedCount));
+                Widgets.Label(emptyCellRectLabel, "x" + (4 - data.totalPlantedCount));
                 Widgets.Label(nonEmptyCellRectLabel, "x" + data.totalPlantedCount);
                 Widgets.Label(nonHarvestableCellRectLabel, "x" + (data.totalPlantedCount - data.harvestablePlants.Count));
 

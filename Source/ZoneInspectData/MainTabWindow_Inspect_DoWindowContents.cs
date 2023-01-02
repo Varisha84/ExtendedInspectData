@@ -28,8 +28,7 @@ namespace ExtendedInspectData
                 Zone_Stockpile selStockpileZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Stockpile;
                 Zone_Growing selGrowingZone = ((ISelectable)Find.Selector.SelectedZone) as Zone_Growing;
                 Building_Storage storage = ((ISelectable)Find.Selector.SingleSelectedObject) as Building_Storage;
-
-                plantGrowingInspectPanelFiller.ResetData();
+                Building_PlantGrower plantGrower = ((ISelectable)Find.Selector.SingleSelectedObject) as Building_PlantGrower;
 
                 //single selection
                 if (selStockpileZone != null)
@@ -37,16 +36,26 @@ namespace ExtendedInspectData
                     zoneStockpileInspectPanelFiller.DoPaneContentsFor(selStockpileZone, inRect);
                     storageInspectPanelFiller.ResetData();
                     zoneGrowingInspectPanelFiller.ResetData();
+                    plantGrowingInspectPanelFiller.ResetData();
                 }
                 else if (selGrowingZone != null)
                 {
                     zoneGrowingInspectPanelFiller.DoPaneContentsFor(new List<Zone_Growing>() { selGrowingZone }, inRect);
                     storageInspectPanelFiller.ResetData();
                     zoneStockpileInspectPanelFiller.ResetData();
+                    plantGrowingInspectPanelFiller.ResetData();
                 }
                 else if (storage != null)
                 {
                     storageInspectPanelFiller.DoPaneContentsFor(new List<Building_Storage>() { storage }, inRect);
+                    zoneStockpileInspectPanelFiller.ResetData();
+                    zoneGrowingInspectPanelFiller.ResetData();
+                    plantGrowingInspectPanelFiller.ResetData();
+                }
+                else if (plantGrower != null)
+                {
+                    plantGrowingInspectPanelFiller.DoPaneContentsFor(new List<Building_PlantGrower>() { plantGrower }, inRect);
+                    storageInspectPanelFiller.ResetData();
                     zoneStockpileInspectPanelFiller.ResetData();
                     zoneGrowingInspectPanelFiller.ResetData();
                 }
@@ -55,6 +64,7 @@ namespace ExtendedInspectData
                     zoneStockpileInspectPanelFiller.ResetData();
                     zoneGrowingInspectPanelFiller.ResetData();
                     storageInspectPanelFiller.ResetData();
+                    plantGrowingInspectPanelFiller.ResetData();
                 }
             }
             else if (Find.Selector.NumSelected > 1)

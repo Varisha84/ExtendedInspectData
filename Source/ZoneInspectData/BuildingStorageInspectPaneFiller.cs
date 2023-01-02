@@ -11,7 +11,7 @@ namespace ExtendedInspectData
         private static readonly float DATAROW_HEIGHT = 28f;
         private static readonly float ICON_WIDTH = 27f;
         private static readonly float REQUIRED_HEIGHT = 4 * DATAROW_HEIGHT;
-        private static readonly float TITLE_OFFSET = 40f;
+        private static readonly float TITLE_OFFSET = 54f;
         private static readonly float TOP_BOTTOM_OFFSET = 18f;
 
         //set of things to consider for listing (basically anything that can be set in zone settings filter)
@@ -73,7 +73,7 @@ namespace ExtendedInspectData
             }
 
             //init drawing data to reduce object handling each draw cycle
-            mainRect = new Rect(16f, 0f, 0f, 0f);
+            mainRect = new Rect(16f, 40f, 0f, 0f);
             viewRect = new Rect(mainRect.x, 0f, 0f, 0f);
         }
 
