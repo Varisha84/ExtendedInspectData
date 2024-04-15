@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\zonestockpileinspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:zonestockpileinspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\zonegrowinginspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:zonegrowinginspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\singleplantgrowerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:singleplantgrowerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,28 +19,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ZoneStockpileInspectPaneFiller.cs",
-              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneStockpileInspectPaneFiller.cs",
-              "RelativeDocumentMoniker": "ZoneStockpileInspectPaneFiller.cs",
-              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneStockpileInspectPaneFiller.cs",
-              "RelativeToolTip": "ZoneStockpileInspectPaneFiller.cs",
-              "ViewState": "AQIAAJcAAAAAAAAAAAAcwKQAAAAlAAAA",
+              "Title": "SinglePlantGrowerData.cs",
+              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\SinglePlantGrowerData.cs",
+              "RelativeDocumentMoniker": "SinglePlantGrowerData.cs",
+              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\SinglePlantGrowerData.cs",
+              "RelativeToolTip": "SinglePlantGrowerData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-15T01:50:08.463Z",
+              "WhenOpened": "2024-04-15T03:03:58.483Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ZoneGrowingInspectPaneFiller.cs",
-              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneGrowingInspectPaneFiller.cs",
-              "RelativeDocumentMoniker": "ZoneGrowingInspectPaneFiller.cs",
-              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneGrowingInspectPaneFiller.cs",
-              "RelativeToolTip": "ZoneGrowingInspectPaneFiller.cs",
-              "ViewState": "AQIAAJoBAAAAAAAAAADwv7gBAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-15T01:22:53.091Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
