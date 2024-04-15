@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\zonestockpileinspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:zonestockpileinspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\zonegrowinginspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:zonegrowinginspectpanefiller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ZoneStockpileInspectPaneFiller.cs",
+              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneStockpileInspectPaneFiller.cs",
+              "RelativeDocumentMoniker": "ZoneStockpileInspectPaneFiller.cs",
+              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneStockpileInspectPaneFiller.cs",
+              "RelativeToolTip": "ZoneStockpileInspectPaneFiller.cs",
+              "ViewState": "AQIAAJcAAAAAAAAAAAAcwKQAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T01:50:08.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ZoneGrowingInspectPaneFiller.cs",
+              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneGrowingInspectPaneFiller.cs",
+              "RelativeDocumentMoniker": "ZoneGrowingInspectPaneFiller.cs",
+              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\ZoneGrowingInspectPaneFiller.cs",
+              "RelativeToolTip": "ZoneGrowingInspectPaneFiller.cs",
+              "ViewState": "AQIAAJoBAAAAAAAAAADwv7gBAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T01:22:53.091Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

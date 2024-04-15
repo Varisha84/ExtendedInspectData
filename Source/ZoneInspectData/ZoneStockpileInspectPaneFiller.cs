@@ -168,7 +168,7 @@ namespace ExtendedInspectData
 
             foreach (Thing t in zone.AllContainedThings)
             {
-                if (thingDefinitions.Contains(t.def))
+                if (zone.Accepts(t))
                 {
                     UpdateLookupData(summedUpThingsLabelList, summedUpThings, t);
                 }
