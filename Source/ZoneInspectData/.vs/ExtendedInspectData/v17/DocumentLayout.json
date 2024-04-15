@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|e:\\workspaces\\rimworld\\extendedinspectdata\\source\\zoneinspectdata\\singleplantgrowerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8578749-BBDD-49AA-ADC8-9B6187DF041A}|ExtendedInspectData.csproj|solutionrelative:singleplantgrowerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SinglePlantGrowerData.cs",
+              "DocumentMoniker": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\SinglePlantGrowerData.cs",
+              "RelativeDocumentMoniker": "SinglePlantGrowerData.cs",
+              "ToolTip": "E:\\Workspaces\\Rimworld\\ExtendedInspectData\\Source\\ZoneInspectData\\SinglePlantGrowerData.cs",
+              "RelativeToolTip": "SinglePlantGrowerData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T03:03:58.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,9 +11,6 @@ namespace ExtendedInspectData
     {
         private static readonly float ICON_WIDTH = 27f;
         private static readonly float DATAROW_HEIGHT = 28f;
-
-        //set of things to consider for listing (basically anything that can be set in zone settings filter)
-        private readonly HashSet<ThingDef> thingDefinitions;
         
         //map thingdef to total stackcount 
         private readonly Dictionary<ThingDef, int> summedUpThings;
@@ -36,18 +33,7 @@ namespace ExtendedInspectData
             lastZoneInspected = null;
             scrollPosition = Vector2.zero;
             summedUpThings = new Dictionary<ThingDef, int>();
-            summedUpThingsLabelList = new List<ThingDef>();
-
-            IEnumerable<TreeNode_ThingCategory> categories = ThingCategoryNodeDatabase.allThingCategoryNodes;
-            thingDefinitions = new HashSet<ThingDef>();
-
-            foreach (TreeNode_ThingCategory tc in categories)
-            {
-                foreach (ThingDef td in tc.catDef.DescendantThingDefs)
-                {
-                    thingDefinitions.Add(td);
-                }
-            }
+            summedUpThingsLabelList = new List<ThingDef>();     
 
             //init drawing data to reduce object handling each draw cycle
             mainRect = new Rect(16f, 52f, 0f, 0f);
@@ -84,7 +70,7 @@ namespace ExtendedInspectData
             {
                 Log.ErrorOnce(string.Concat(new object[]
                 {
-                    "Error in Mod ZoneInspectData: ZoneStockpileInspectPaneFiller#DoPaneContentsFor ",
+                    "Error in Mod ExtendedInspectData: ZoneStockpileInspectPaneFiller#DoPaneContentsFor ",
                     Find.Selector.FirstSelectedObject,
                     ": ", ex.ToString()
                 }), this.GetHashCode());
@@ -168,7 +154,7 @@ namespace ExtendedInspectData
 
             foreach (Thing t in zone.AllContainedThings)
             {
-                if (thingDefinitions.Contains(t.def))
+                if (zone.Accepts(t))
                 {
                     UpdateLookupData(summedUpThingsLabelList, summedUpThings, t);
                 }

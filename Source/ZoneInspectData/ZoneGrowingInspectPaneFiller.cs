@@ -439,7 +439,7 @@ namespace ExtendedInspectData
             //analyze growth values
             foreach (Thing t in zone.AllContainedThings)
             {
-                if (t.def == zone.GetPlantDefToGrow())
+                if ((t.def == zone.GetPlantDefToGrow()) && (t.def.defName != "BushBase"))
                 {
                     plant = t as Plant;
                     if (plant != null)
